@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,13 +12,15 @@ namespace BankSystem
 {
     public partial class frmTransactions : Form
     {
-
+        ViewModelBank _vmb = new ViewModelBank();
         /// <summary>
         /// Used when viewing all transactions.
         /// </summary>
         public frmTransactions()
         {
             InitializeComponent();
+            gwTransactions.DataSource = _vmb.GetTransactions();
+           
         }
 
         /// <summary>

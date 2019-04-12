@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-    class Cards
+    public class Cards
     {
         public int IdCard { get; set; }
         public DateTime ExpireDate { get; set; }
