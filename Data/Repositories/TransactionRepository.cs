@@ -12,13 +12,14 @@ namespace Data.Repositories
     public class TransactionRepository
     {
         private const string CONNECTION_STRING = "Server=TRANSFORMER3\\SQLEXPRESS2016;Database=TransformerBank;Trusted_Connection=True;";
+        private const string CONNECTION_STRING_HOME_DB = "Server=DESKTOP-V0H80T3\\SQLEXPRESS;Database=TransformerBank;Trusted_Connection=True;";
         private List<Transaction> _transactions = new List<Transaction>();
 
         public List<Transaction> LoadTransactions()
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");

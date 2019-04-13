@@ -34,9 +34,13 @@
             // 
             // gwTransactions
             // 
+            this.gwTransactions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gwTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gwTransactions.Location = new System.Drawing.Point(13, 13);
             this.gwTransactions.Name = "gwTransactions";
+            this.gwTransactions.RowHeadersVisible = false;
             this.gwTransactions.Size = new System.Drawing.Size(559, 336);
             this.gwTransactions.TabIndex = 0;
             // 
