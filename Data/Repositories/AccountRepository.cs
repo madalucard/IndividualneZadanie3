@@ -14,11 +14,12 @@ namespace Data.Repositories
     {
         private const string CONNECTION_STRING = "Server=TRANSFORMER3\\SQLEXPRESS2016;Database=TransformerBank;Trusted_Connection=True;";
         private const string CONNECTION_STRING_HOME_DB = "Server=DESKTOP-V0H80T3\\SQLEXPRESS;Database=TransformerBank;Trusted_Connection=True;";
+
         /// <summary>
         /// Load account from DB by ID
         /// </summary>
         /// <param name="id">Id of account</param>
-        /// <returns>Account</returns>
+        /// <returns>Account by ID</returns>
         public List<Account> SelectAccountByID(int id)
         {
             List<Account> _account = new List<Account>();
@@ -30,13 +31,12 @@ namespace Data.Repositories
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");
 
-
                     using (SqlCommand command = connection.CreateCommand())
                     {
                         command.CommandText = @"select *
                                                 from Account
                                                 Where IdAccount = @filteredID";
-                        command.Parameters.Add("@filteredID",SqlDbType.Int).Value = id;
+                        command.Parameters.Add("@filteredID", SqlDbType.Int).Value = id;
                         try
                         {
                             using (SqlDataReader reader = command.ExecuteReader())
@@ -46,7 +46,7 @@ namespace Data.Repositories
                                     Account _acc = new Account();
                                     _acc.IdAccount = reader.GetInt32(0);
                                     _acc.IdCustomer = reader.GetInt32(1);
-                                    _acc.Iban =  reader.GetString(2);
+                                    _acc.Iban = reader.GetString(2);
                                     _acc.AccName = reader.GetString(3);
                                     _acc.Amount = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4);
                                     _acc.Overdraft = reader.GetDecimal(5);
@@ -70,6 +70,62 @@ namespace Data.Repositories
                 //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
             }
             return _account;
+        }
+
+        /// <summary>
+        /// Return list of account selected by name
+        /// </summary>
+        /// <param name="name">Name of account</param>
+        /// <returns>Accounts by name</returns>
+        public List<Account> SelectAccountByName(string name)
+        {
+            List<Account> _accounts = new List<Account>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"select *
+                                                from Account
+                                                where AccName like @filteredName";
+                        command.Parameters.Add("@filteredName", SqlDbType.NVarChar).Value = $"%{name}%";
+                        try
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    Account _acc = new Account();
+                                    _acc.IdAccount = reader.GetInt32(0);
+                                    _acc.IdCustomer = reader.GetInt32(1);
+                                    _acc.Iban = reader.GetString(2);
+                                    _acc.AccName = reader.GetString(3);
+                                    _acc.Amount = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4);
+                                    _acc.Overdraft = reader.GetDecimal(5);
+                                    _acc.IdCompany = reader.IsDBNull(6) ? 0 : reader.GetInt32(6);
+                                    _acc.Active = reader.GetBoolean(7);
+
+                                    _accounts.Add(_acc);
+                                }
+                            }
+                        }
+
+                        catch (Exception)
+                        {
+                            //TODO something with Reader exceptions.... Debug.WriteLine(e.ToString());
+                        }
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+            }
+            catch
+            {
+                //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+            }
+            return _accounts;
         }
     }
 }

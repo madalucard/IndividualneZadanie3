@@ -171,7 +171,7 @@ namespace BankSystem
 
         #region Filtering buttons
         /// <summary>
-        /// Find accoutnt by ID and load it to DataGridView
+        /// Find accoutnt by ID and load it to DataGridView.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -189,11 +189,60 @@ namespace BankSystem
 
            
         }
+        /// <summary>
+        /// Find customer by ID and load it to DataGridView.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFiltCustID_Click(object sender, EventArgs e)
+        {
+            int result;
+            if (int.TryParse(txtBxCustID.Text, out result))
+            {
+                gwClients.DataSource = _vmb.GetCustomerByID(result);
+            }
+            else
+            {
+                MessageBox.Show("Put number ID");
+            }
+        }
+        /// <summary>
+        /// Find account by name(string) and load it to DataGridView.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFiltAccName_Click(object sender, EventArgs e)
+        {
+            gwClients.DataSource = _vmb.GetAccountsByName(txtBxAccName.Text);
 
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFiltCustName_Click(object sender, EventArgs e)
+        {
 
+            if (txtBxCustFName.Text == "FIRSTNAME")
+            {
+                gwClients.DataSource = _vmb.GetCustomerByLastname(txtBxLName.Text);
+            }
+            else 
+            if (txtBxLName.Text == "LASTNAME")
+            {
+                gwClients.DataSource = _vmb.GetCustomerByFirstname(txtBxCustFName.Text);
+            }
+            else
+            {
+                gwClients.DataSource = _vmb.GetCustomerByLastname(txtBxCustFName.Text, txtBxLName.Text);
+            }
+        }
 
 
 
         #endregion
+
+       
     }
 }

@@ -93,6 +93,7 @@
             this.btnFiltCustName.TabIndex = 12;
             this.btnFiltCustName.Text = "CONFIRM!";
             this.btnFiltCustName.UseVisualStyleBackColor = true;
+            this.btnFiltCustName.Click += new System.EventHandler(this.btnFiltCustName_Click);
             // 
             // btnFiltCustID
             // 
@@ -103,6 +104,7 @@
             this.btnFiltCustID.TabIndex = 11;
             this.btnFiltCustID.Text = "CONFIRM!";
             this.btnFiltCustID.UseVisualStyleBackColor = true;
+            this.btnFiltCustID.Click += new System.EventHandler(this.btnFiltCustID_Click);
             // 
             // btnFiltAccName
             // 
@@ -113,6 +115,7 @@
             this.btnFiltAccName.TabIndex = 10;
             this.btnFiltAccName.Text = "CONFIRM!";
             this.btnFiltAccName.UseVisualStyleBackColor = true;
+            this.btnFiltAccName.Click += new System.EventHandler(this.btnFiltAccName_Click);
             // 
             // btnFiltAccID
             // 
@@ -140,7 +143,7 @@
             // txtBxCustFName
             // 
             this.txtBxCustFName.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtBxCustFName.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtBxCustFName.ForeColor = System.Drawing.Color.LightGray;
             this.txtBxCustFName.Location = new System.Drawing.Point(184, 87);
             this.txtBxCustFName.Name = "txtBxCustFName";
             this.txtBxCustFName.Size = new System.Drawing.Size(100, 20);
@@ -152,7 +155,7 @@
             // txtBxCustID
             // 
             this.txtBxCustID.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtBxCustID.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtBxCustID.ForeColor = System.Drawing.Color.LightGray;
             this.txtBxCustID.Location = new System.Drawing.Point(184, 62);
             this.txtBxCustID.Name = "txtBxCustID";
             this.txtBxCustID.Size = new System.Drawing.Size(206, 20);
@@ -164,7 +167,7 @@
             // txtBxAccName
             // 
             this.txtBxAccName.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtBxAccName.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtBxAccName.ForeColor = System.Drawing.Color.LightGray;
             this.txtBxAccName.Location = new System.Drawing.Point(184, 37);
             this.txtBxAccName.Name = "txtBxAccName";
             this.txtBxAccName.Size = new System.Drawing.Size(206, 20);
@@ -176,7 +179,7 @@
             // txtBxAccID
             // 
             this.txtBxAccID.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtBxAccID.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtBxAccID.ForeColor = System.Drawing.Color.LightGray;
             this.txtBxAccID.Location = new System.Drawing.Point(184, 12);
             this.txtBxAccID.Name = "txtBxAccID";
             this.txtBxAccID.Size = new System.Drawing.Size(206, 20);
@@ -227,7 +230,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gwClients.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gwClients.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.gwClients.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.gwClients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gwClients.Location = new System.Drawing.Point(12, 140);
             this.gwClients.Name = "gwClients";
