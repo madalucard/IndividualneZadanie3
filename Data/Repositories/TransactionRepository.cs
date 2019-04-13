@@ -15,6 +15,10 @@ namespace Data.Repositories
         private const string CONNECTION_STRING_HOME_DB = "Server=DESKTOP-V0H80T3\\SQLEXPRESS;Database=TransformerBank;Trusted_Connection=True;";
         private List<Transaction> _transactions = new List<Transaction>();
 
+        /// <summary>
+        /// Loads all transaction from DB to List of transactions
+        /// </summary>
+        /// <returns>List of transactions</returns>
         public List<Transaction> LoadTransactions()
         {
             try
@@ -35,40 +39,36 @@ namespace Data.Repositories
                                                        Ks,
                                                        Message  
                                                 from Transactions";
-                        //try
-                        //{
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        try
                         {
-                            while (reader.Read())
+                            using (SqlDataReader reader = command.ExecuteReader())
                             {
-                                Transaction _tran = new Transaction();
+                                while (reader.Read())
+                                {
+                                    Transaction _tran = new Transaction();
 
-                                _tran.IdTransaction = reader.GetInt32(0);
-                                _tran.IdFrom = reader.GetInt32(1);
-                                _tran.IdTo = reader.GetInt32(2);
-                                _tran.Value = reader.GetDecimal(3);
-                                _tran.Vs = reader.IsDBNull(4) ? "null" :  reader.GetString(4);
-                                _tran.Ss = reader.IsDBNull(5) ? "null" : reader.GetString(5);
-                                _tran.Ks = reader.IsDBNull(6) ? "null" : reader.GetString(6);
-                                _tran.Message = reader.IsDBNull(7) ? "null" : reader.GetString(7);                                
+                                    _tran.IdTransaction = reader.GetInt32(0);
+                                    _tran.IdFrom = reader.GetInt32(1);
+                                    _tran.IdTo = reader.GetInt32(2);
+                                    _tran.Value = reader.GetDecimal(3);
+                                    _tran.Vs = reader.IsDBNull(4) ? "null" : reader.GetString(4);
+                                    _tran.Ss = reader.IsDBNull(5) ? "null" : reader.GetString(5);
+                                    _tran.Ks = reader.IsDBNull(6) ? "null" : reader.GetString(6);
+                                    _tran.Message = reader.IsDBNull(7) ? "null" : reader.GetString(7);
 
-                                _transactions.Add(_tran);
+                                    _transactions.Add(_tran);
+                                }
                             }
-
-
-
-
                         }
-                        //}
-                        //catch (Exception e)
-                        //{
-                        //    //TODO something with Reader exceptions.... Debug.WriteLine(e.ToString());
-                        //}
+                        catch (Exception)
+                        {
+                            //TODO something with Reader exceptions.... Debug.WriteLine(e.ToString());
+                        }
                     }
                     Debug.WriteLine("Connection to DB opened!");
                 }
             }
-            catch (Exception e)
+            catch
             {
                 //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
             }

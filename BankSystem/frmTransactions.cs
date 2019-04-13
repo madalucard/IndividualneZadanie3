@@ -19,7 +19,7 @@ namespace BankSystem
         public frmTransactions()
         {
             InitializeComponent();
-            gwTransactions.DataSource = _vmb.GetTransactions();
+            gwTransactions.DataSource = _vmb.GetAllTransactions();
            
         }
 
