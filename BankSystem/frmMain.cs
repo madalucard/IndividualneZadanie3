@@ -17,11 +17,52 @@ namespace BankSystem
             InitializeComponent();
         }
 
+        #region Watermarks
+        /// <summary>
+        /// After enter to TextBox clears Text and change color to Black
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtBxMainFindClient_Enter(object sender, EventArgs e)
+        {
+            if (txtBxMainFindClient.Text.ToUpper() == "ID")
+            {
+                txtBxMainFindClient.Text = "";
+                txtBxMainFindClient.ForeColor = Color.Black;
+            }
+        }
+        /// <summary>
+        /// After leaving TextBox change color to LightGray
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtBxMainFindClient_Leave(object sender, EventArgs e)
+        {
+            if (txtBxMainFindClient.Text == "")
+            {
+                txtBxMainFindClient.Text = "ID";
+                txtBxMainFindClient.ForeColor = Color.LightGray;
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// Opens new frmClientManagment with filtered Client/Account
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdFindClient_Click(object sender, EventArgs e)
         {
-            using (frmClientManagement newForm = new frmClientManagement())
+            if (!int.TryParse(txtBxMainFindClient.Text, out int result))
             {
-                newForm.ShowDialog();
+                MessageBox.Show("Put number ID");
+            }
+            else
+            {
+                using (frmClientManagement newForm = new frmClientManagement(result))
+                {
+                    newForm.ShowDialog();
+                }
             }
         }
 

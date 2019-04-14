@@ -11,10 +11,11 @@ namespace BankSystem
     class ViewModelBank
     {
         private AccountRepository _accRep = new AccountRepository();
+        private CardRepository _cardRep = new CardRepository();
         private CustomerRepository _custRep = new CustomerRepository();
         private TransactionRepository _tranRep = new TransactionRepository();
 
-
+        #region frmTransactions (all transactions)
         /// <summary>
         /// Returns list of transactions
         /// </summary>
@@ -23,8 +24,8 @@ namespace BankSystem
         {
             return _tranRep.LoadTransactions();
         }
-
-
+        #endregion
+        #region frmAccounts
         /// <summary>
         /// Returns list of account selected by Id
         /// </summary>
@@ -70,12 +71,37 @@ namespace BankSystem
         {
             return _custRep.SelectCustomersByLastname(name);
         }
-
-        public List<Customers> GetCustomerByLastname(string fname, string lname)
+        /// <summary>
+        /// Returns list of customers selected by Fullname
+        /// </summary>
+        /// <param name="fname">Firstname parameter for filter</param>
+        /// <param name="lname">Lastname parameter for filter</param>
+        /// <returns>List of account by fullname</returns>
+        public List<Customers> GetCustomerByFullname(string fname, string lname)
         {
             return _custRep.SelectCustomersByFullname(fname, lname);
         }
+        #endregion
 
+        #region frmClientsManagment
+        /// <summary>
+        /// Returns list of Cards selected by ID
+        /// </summary>
+        /// <param name="id">ID parameter for filter</param>
+        /// <returns>List of cards</returns>
+        public List<Cards> GetAllCardsByAccID(int accId)
+        {
+            return _cardRep.SelectAllCardsByAccID(accId);
+        }
+
+
+
+
+
+
+
+
+        #endregion
 
 
     }

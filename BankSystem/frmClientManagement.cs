@@ -12,20 +12,64 @@ namespace BankSystem
 {
     public partial class frmClientManagement : Form
     {
-
+        ViewModelBank _vmb = new ViewModelBank();
         /// <summary>
         /// Backup, do not really use :)
         /// </summary>
-        public frmClientManagement() : this(0) { }
+        //public frmClientManagement() : this(0) { }
 
         /// <summary>
         /// Used when viewing/updating existing client.
         /// </summary>
         /// <param name="clientId"></param>
-        public frmClientManagement(int clientId)
+        public frmClientManagement(int accId)
         {
             InitializeComponent();
+            gwCardsView.DataSource = _vmb.GetAllCardsByAccID(accId);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void cmdUpdate_Click(object sender, EventArgs e)
         {

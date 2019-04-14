@@ -24,10 +24,10 @@ namespace BankSystem
         }
         private void cmdManageAccount_Click(object sender, EventArgs e)
         {
-            using (frmClientManagement newForm = new frmClientManagement())
-            {
-                newForm.ShowDialog();
-            }
+            //using (frmClientManagement newForm = new frmClientManagement())
+            //{
+            //    newForm.ShowDialog();
+            //}
         }
 
         #region Watermark txtBxs
@@ -235,12 +235,9 @@ namespace BankSystem
             }
             else
             {
-                gwClients.DataSource = _vmb.GetCustomerByLastname(txtBxCustFName.Text, txtBxLName.Text);
+                gwClients.DataSource = _vmb.GetCustomerByFullname(txtBxCustFName.Text, txtBxLName.Text);
             }
         }
-
-
-
         #endregion
 
        
