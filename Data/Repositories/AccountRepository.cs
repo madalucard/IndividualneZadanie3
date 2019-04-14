@@ -236,6 +236,7 @@ namespace Data.Repositories
                         command.Parameters.Add("@iban", SqlDbType.NVarChar).Value = iban;
                         command.Parameters.Add("@accName", SqlDbType.NVarChar).Value = accName;
                         command.Parameters.Add("@overdraft", SqlDbType.Decimal).Value = overdraft;
+                        command.ExecuteNonQuery();
 
                         Debug.Write("Account registered!");
                         Debug.WriteLine("Connection to DB Closed!");
