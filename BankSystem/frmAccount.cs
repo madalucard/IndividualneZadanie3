@@ -12,6 +12,7 @@ namespace BankSystem
 {
     public partial class frmAccount : Form
     {
+        ViewModelBank _vmb = new ViewModelBank();
         /// <summary>
         /// Used when adding new account.
         /// </summary>
@@ -31,7 +32,24 @@ namespace BankSystem
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-
+            
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{txtEmail1.Text.ToString()}@{txtEmail2.Text.ToString()}");
+            _vmb.RegisterCustomers(txtTitle.Text.ToString(),
+                                    txtFName.Text.ToString(),
+                                    txtMName.Text.ToString(),
+                                    txtLName.Text.ToString(),
+                                    txtSuffix.Text.ToString(),
+                                    DateTime.Parse(dtpBirthDate.Text.ToString()),
+                                    txtIDCardPers.Text.ToString(),
+                                    txtAddress.Text.ToString(),
+                                    txtPostcode.Text.ToString(),
+                                    int.Parse(txtCityID.Text),
+                                    txtCountry.Text.ToString(),
+                                    txtPhone.Text.ToString(),
+                                    sb.ToString());
+                            //  TODO natlacit tam ID customera
+            _vmb.RegisterAccount(,txtAccName.Text.ToString(),int.Parse(txtOverdraft.Text));
         }
     }
 }

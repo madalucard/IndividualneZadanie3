@@ -58,11 +58,11 @@
             this.lblFName = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtIdCompany = new System.Windows.Forms.TextBox();
             this.lblIDCompany = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtOverdraft = new System.Windows.Forms.TextBox();
             this.lblOverdraft = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtAccName = new System.Windows.Forms.TextBox();
             this.lblAccName = new System.Windows.Forms.Label();
             this.btnRegister = new System.Windows.Forms.Button();
             this.gbCreateCust.SuspendLayout();
@@ -332,11 +332,11 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.txtIdCompany);
             this.groupBox2.Controls.Add(this.lblIDCompany);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.txtOverdraft);
             this.groupBox2.Controls.Add(this.lblOverdraft);
-            this.groupBox2.Controls.Add(this.textBox3);
+            this.groupBox2.Controls.Add(this.txtAccName);
             this.groupBox2.Controls.Add(this.lblAccName);
             this.groupBox2.Location = new System.Drawing.Point(12, 217);
             this.groupBox2.Name = "groupBox2";
@@ -345,12 +345,12 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "NEW ACCOUNT:";
             // 
-            // textBox1
+            // txtIdCompany
             // 
-            this.textBox1.Location = new System.Drawing.Point(125, 72);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 31;
+            this.txtIdCompany.Location = new System.Drawing.Point(125, 72);
+            this.txtIdCompany.Name = "txtIdCompany";
+            this.txtIdCompany.Size = new System.Drawing.Size(100, 20);
+            this.txtIdCompany.TabIndex = 31;
             // 
             // lblIDCompany
             // 
@@ -361,12 +361,12 @@
             this.lblIDCompany.TabIndex = 11;
             this.lblIDCompany.Text = "ID Company";
             // 
-            // textBox2
+            // txtOverdraft
             // 
-            this.textBox2.Location = new System.Drawing.Point(125, 47);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 30;
+            this.txtOverdraft.Location = new System.Drawing.Point(125, 47);
+            this.txtOverdraft.Name = "txtOverdraft";
+            this.txtOverdraft.Size = new System.Drawing.Size(100, 20);
+            this.txtOverdraft.TabIndex = 30;
             // 
             // lblOverdraft
             // 
@@ -377,12 +377,12 @@
             this.lblOverdraft.TabIndex = 10;
             this.lblOverdraft.Text = "Overdraft:";
             // 
-            // textBox3
+            // txtAccName
             // 
-            this.textBox3.Location = new System.Drawing.Point(124, 22);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 29;
+            this.txtAccName.Location = new System.Drawing.Point(124, 22);
+            this.txtAccName.Name = "txtAccName";
+            this.txtAccName.Size = new System.Drawing.Size(100, 20);
+            this.txtAccName.TabIndex = 29;
             // 
             // lblAccName
             // 
@@ -455,11 +455,11 @@
         private System.Windows.Forms.TextBox txtLName;
         private System.Windows.Forms.TextBox txtMName;
         private System.Windows.Forms.TextBox txtFName;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtIdCompany;
         private System.Windows.Forms.Label lblIDCompany;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtOverdraft;
         private System.Windows.Forms.Label lblOverdraft;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtAccName;
         private System.Windows.Forms.Label lblAccName;
         private System.Windows.Forms.Button btnRegister;
     }

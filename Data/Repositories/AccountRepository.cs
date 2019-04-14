@@ -146,8 +146,67 @@ namespace Data.Repositories
             return _accounts;
         }
 
-        public void RegisterAccount(int idCustomer, string iban, string accName, int overdraft)
+        /// <summary>
+        /// Returns last created Account
+        /// </summary>
+        /// <returns>Last created Account</returns>
+        public Account SelectLastAccount()
         {
+            Account _acc = new Account();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"select max(IdAccount)
+                                                from Account";
+                        
+                        try
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    
+                                    _acc.IdAccount = reader.GetInt32(0);
+                                    _acc.IdCustomer = reader.GetInt32(1);
+                                    _acc.Iban = reader.GetString(2);
+                                    _acc.AccName = reader.GetString(3);
+                                    _acc.Amount = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4);
+                                    _acc.Overdraft = reader.GetDecimal(5);
+                                    _acc.IdCompany = reader.IsDBNull(6) ? 0 : reader.GetInt32(6);
+                                    _acc.Active = reader.GetBoolean(7);                                }
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            //TODO something with Reader exceptions.... Debug.WriteLine(e.ToString());
+                        }
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+            }
+            catch
+            {
+                //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+            }
+            return _acc;
+        }
+
+        /// <summary>
+        /// Register account.
+        /// </summary>
+        /// <param name="idCustomer">Id of customer</param>
+        /// <param name="accName">Name of account</param>
+        /// <param name="overdraft">Maximal overdraft</param>
+        /// <returns>New account</returns>
+        public Account RegisterAccount(int idCustomer, string accName, int overdraft)
+        {
+            string iban = IbanGenerator();
             try
             {
                 using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
@@ -164,7 +223,8 @@ namespace Data.Repositories
                                                        ,[Overdraft]
                                                        ,[IdCompany]
                                                        ,[Active])
-                                                 VALUES
+                                                OUTPUT IdAccount
+                                                VALUES
                                                        (@title
                                                        ,@iban
                                                        ,@accName
@@ -177,7 +237,6 @@ namespace Data.Repositories
                         command.Parameters.Add("@accName", SqlDbType.NVarChar).Value = accName;
                         command.Parameters.Add("@overdraft", SqlDbType.Decimal).Value = overdraft;
 
-                        command.ExecuteNonQuery();
                         Debug.Write("Account registered!");
                         Debug.WriteLine("Connection to DB Closed!");
                     }
@@ -187,8 +246,7 @@ namespace Data.Repositories
             {
                 //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
             }
+            return SelectLastAccount();
         }
-
-
     }
 }

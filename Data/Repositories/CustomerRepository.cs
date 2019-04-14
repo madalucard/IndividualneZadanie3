@@ -273,7 +273,86 @@ namespace Data.Repositories
             return _customers;
         }
 
-        public void RegisterCustomer(string title, string fName, string mName, string lName, string suffix, DateTime birthdate, string idCardPers, string address, string postcode, int cityId, string country, string phone, string email)
+        /// <summary>
+        /// Return last customer
+        /// </summary>
+        /// <returns>Last Customer</returns>
+        public Customers SelectLastCustomer()
+        {
+            Customers _cust = new Customers();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+
+
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        ///TODO Select with city name instead of ID
+                        command.CommandText = @"select max(IdCustomer)
+                                                from Customers";
+                        try
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    
+                                    _cust.IdCustomer = reader.GetInt32(0);
+                                    _cust.Title = reader.IsDBNull(1) ? "null" : reader.GetString(1);
+                                    _cust.Firstname = reader.GetString(2);
+                                    _cust.Middlename = reader.IsDBNull(3) ? "null" : reader.GetString(3);
+                                    _cust.Lastname = reader.GetString(4);
+                                    _cust.Suffix = reader.IsDBNull(5) ? "null" : reader.GetString(6);
+                                    _cust.Birthdate = reader.GetDateTime(6);
+                                    _cust.IdCardPersonal = reader.GetString(7);
+                                    _cust.Address = reader.GetString(8);
+                                    _cust.Postcode = reader.GetString(9);
+                                    _cust.CityId = reader.GetInt32(10);
+                                    _cust.Country = reader.GetString(11);
+                                    _cust.Phone = reader.GetString(12);
+                                    _cust.Email = reader.IsDBNull(13) ? "null" : reader.GetString(13);
+                                    _cust.Active = reader.GetBoolean(14);
+
+                                }
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            //TODO something with Reader exceptions.... Debug.WriteLine(e.ToString());
+                        }
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+            }
+            catch
+            {
+                //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+            }
+            return _cust;
+        }
+
+        /// <summary>
+        /// Return last Customer
+        /// </summary>
+        /// <param name="title">Title</param>
+        /// <param name="fName">Firstname</param>
+        /// <param name="mName">Middlename</param>
+        /// <param name="lName">Lastname</param>
+        /// <param name="suffix">Suffix</param>
+        /// <param name="birthdate">Birthdate</param>
+        /// <param name="idCardPers">IDCard of person</param>
+        /// <param name="address">Address</param>
+        /// <param name="postcode">Postcode</param>
+        /// <param name="cityId">City Id</param>
+        /// <param name="country">Country</param>
+        /// <param name="phone">Phone number</param>
+        /// <param name="email">Email</param>
+        /// <returns>Last created customer</returns>
+        public Customers RegisterCustomer(string title, string fName, string mName, string lName, string suffix, DateTime birthdate, string idCardPers, string address, string postcode, int cityId, string country, string phone, string email)
         {
             try
             {
@@ -337,6 +416,8 @@ namespace Data.Repositories
             {
                 //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
             }
+
+            return SelectLastCustomer();
         }
     }
 }

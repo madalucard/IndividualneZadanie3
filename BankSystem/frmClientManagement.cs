@@ -61,7 +61,7 @@ namespace BankSystem
         }
 
         /// <summary>
-        /// Set account to active.
+        /// Sets account to active.
         /// </summary>
         private void OpenAcc()
         {
