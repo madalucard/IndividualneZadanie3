@@ -96,12 +96,14 @@ namespace BankSystem
 
 
 
+        #endregion
 
-
+        #region frmAccount
 
 
 
         #endregion
+
 
 
     }

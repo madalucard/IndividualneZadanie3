@@ -16,6 +16,24 @@ namespace Data.Repositories
         private const string CONNECTION_STRING_HOME_DB = "Server=DESKTOP-V0H80T3\\SQLEXPRESS;Database=TransformerBank;Trusted_Connection=True;";
 
         /// <summary>
+        /// Generate random slovak 24 spaces Iban in form SK+random numbers
+        /// </summary>
+        /// <returns>Slovak Iban</returns>
+        private string IbanGenerator()
+        {
+            StringBuilder sb = new StringBuilder().Append("SK");
+            Random rand = new Random();
+
+            for (int i = 0; i < 21; i++)
+            {
+                sb.Append(rand.Next(9));
+            }
+            return sb.ToString();
+        }
+
+
+
+        /// <summary>
         /// Load account from DB by ID
         /// </summary>
         /// <param name="id">Id of account</param>
@@ -127,5 +145,50 @@ namespace Data.Repositories
             }
             return _accounts;
         }
+
+        public void RegisterAccount(int idCustomer, string iban, string accName, int overdraft)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"INSERT INTO [dbo].[Account]
+                                                       ([IdCustomers]
+                                                       ,[Iban]
+                                                       ,[AccName]
+                                                       ,[Amount]
+                                                       ,[Overdraft]
+                                                       ,[IdCompany]
+                                                       ,[Active])
+                                                 VALUES
+                                                       (@title
+                                                       ,@iban
+                                                       ,@accName
+                                                       ,0
+                                                       ,@overdraft
+                                                       ,null
+                                                       ,1";
+                        command.Parameters.Add("@title", SqlDbType.Int).Value = idCustomer;
+                        command.Parameters.Add("@iban", SqlDbType.NVarChar).Value = iban;
+                        command.Parameters.Add("@accName", SqlDbType.NVarChar).Value = accName;
+                        command.Parameters.Add("@overdraft", SqlDbType.Decimal).Value = overdraft;
+
+                        command.ExecuteNonQuery();
+                        Debug.Write("Account registered!");
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+            }
+            catch
+            {
+                //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+            }
+        }
+
+
     }
 }

@@ -30,12 +30,12 @@
         {
             this.cmdUpdate = new System.Windows.Forms.Button();
             this.cmdNewTransaction = new System.Windows.Forms.Button();
-            this.cmdCloseAccount = new System.Windows.Forms.Button();
+            this.cmdCloseOpenAccount = new System.Windows.Forms.Button();
             this.cmdAllTransactions = new System.Windows.Forms.Button();
             this.cmdWithdrawal = new System.Windows.Forms.Button();
             this.cmdDeposit = new System.Windows.Forms.Button();
             this.gwCardsView = new System.Windows.Forms.DataGridView();
-            this.gbCarsView = new System.Windows.Forms.GroupBox();
+            this.gbCardsView = new System.Windows.Forms.GroupBox();
             this.gbClientInfo = new System.Windows.Forms.GroupBox();
             this.gbCustContact = new System.Windows.Forms.GroupBox();
             this.lblEMailValue = new System.Windows.Forms.Label();
@@ -69,21 +69,24 @@
             this.lblCustId = new System.Windows.Forms.Label();
             this.lblSuffixValue = new System.Windows.Forms.Label();
             this.lblSuffix = new System.Windows.Forms.Label();
+            this.gbAccStatus = new System.Windows.Forms.GroupBox();
+            this.lblStatusValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gwCardsView)).BeginInit();
-            this.gbCarsView.SuspendLayout();
+            this.gbCardsView.SuspendLayout();
             this.gbClientInfo.SuspendLayout();
             this.gbCustContact.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbCustAddress.SuspendLayout();
             this.gbCustInfo.SuspendLayout();
+            this.gbAccStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdUpdate
             // 
             this.cmdUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUpdate.Location = new System.Drawing.Point(102, 58);
+            this.cmdUpdate.Location = new System.Drawing.Point(146, 29);
             this.cmdUpdate.Name = "cmdUpdate";
-            this.cmdUpdate.Size = new System.Drawing.Size(112, 23);
+            this.cmdUpdate.Size = new System.Drawing.Size(143, 23);
             this.cmdUpdate.TabIndex = 4;
             this.cmdUpdate.Text = "Update info";
             this.cmdUpdate.UseVisualStyleBackColor = true;
@@ -92,31 +95,31 @@
             // cmdNewTransaction
             // 
             this.cmdNewTransaction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdNewTransaction.Location = new System.Drawing.Point(171, 187);
+            this.cmdNewTransaction.Location = new System.Drawing.Point(6, 87);
             this.cmdNewTransaction.Name = "cmdNewTransaction";
-            this.cmdNewTransaction.Size = new System.Drawing.Size(112, 23);
+            this.cmdNewTransaction.Size = new System.Drawing.Size(143, 23);
             this.cmdNewTransaction.TabIndex = 5;
             this.cmdNewTransaction.Text = "New transaction";
             this.cmdNewTransaction.UseVisualStyleBackColor = true;
             this.cmdNewTransaction.Click += new System.EventHandler(this.cmdNewTransaction_Click);
             // 
-            // cmdCloseAccount
+            // cmdCloseOpenAccount
             // 
-            this.cmdCloseAccount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCloseAccount.Location = new System.Drawing.Point(37, 29);
-            this.cmdCloseAccount.Name = "cmdCloseAccount";
-            this.cmdCloseAccount.Size = new System.Drawing.Size(112, 23);
-            this.cmdCloseAccount.TabIndex = 6;
-            this.cmdCloseAccount.Text = "Close account";
-            this.cmdCloseAccount.UseVisualStyleBackColor = true;
-            this.cmdCloseAccount.Click += new System.EventHandler(this.cmdCloseAccount_Click);
+            this.cmdCloseOpenAccount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdCloseOpenAccount.Location = new System.Drawing.Point(6, 29);
+            this.cmdCloseOpenAccount.Name = "cmdCloseOpenAccount";
+            this.cmdCloseOpenAccount.Size = new System.Drawing.Size(143, 23);
+            this.cmdCloseOpenAccount.TabIndex = 6;
+            this.cmdCloseOpenAccount.Text = "Close account";
+            this.cmdCloseOpenAccount.UseVisualStyleBackColor = true;
+            this.cmdCloseOpenAccount.Click += new System.EventHandler(this.cmdCloseOpenAccount_Click);
             // 
             // cmdAllTransactions
             // 
             this.cmdAllTransactions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAllTransactions.Location = new System.Drawing.Point(153, 87);
+            this.cmdAllTransactions.Location = new System.Drawing.Point(146, 58);
             this.cmdAllTransactions.Name = "cmdAllTransactions";
-            this.cmdAllTransactions.Size = new System.Drawing.Size(112, 23);
+            this.cmdAllTransactions.Size = new System.Drawing.Size(143, 23);
             this.cmdAllTransactions.TabIndex = 8;
             this.cmdAllTransactions.Text = "All transactions";
             this.cmdAllTransactions.UseVisualStyleBackColor = true;
@@ -125,9 +128,9 @@
             // cmdWithdrawal
             // 
             this.cmdWithdrawal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdWithdrawal.Location = new System.Drawing.Point(102, 158);
+            this.cmdWithdrawal.Location = new System.Drawing.Point(146, 87);
             this.cmdWithdrawal.Name = "cmdWithdrawal";
-            this.cmdWithdrawal.Size = new System.Drawing.Size(112, 23);
+            this.cmdWithdrawal.Size = new System.Drawing.Size(143, 23);
             this.cmdWithdrawal.TabIndex = 9;
             this.cmdWithdrawal.Text = "Withdrawal";
             this.cmdWithdrawal.UseVisualStyleBackColor = true;
@@ -136,9 +139,9 @@
             // cmdDeposit
             // 
             this.cmdDeposit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdDeposit.Location = new System.Drawing.Point(37, 132);
+            this.cmdDeposit.Location = new System.Drawing.Point(6, 58);
             this.cmdDeposit.Name = "cmdDeposit";
-            this.cmdDeposit.Size = new System.Drawing.Size(112, 23);
+            this.cmdDeposit.Size = new System.Drawing.Size(143, 23);
             this.cmdDeposit.TabIndex = 10;
             this.cmdDeposit.Text = "Deposit";
             this.cmdDeposit.UseVisualStyleBackColor = true;
@@ -155,21 +158,22 @@
             this.gwCardsView.Size = new System.Drawing.Size(972, 167);
             this.gwCardsView.TabIndex = 18;
             // 
-            // gbCarsView
+            // gbCardsView
             // 
-            this.gbCarsView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.gbCarsView.Controls.Add(this.gwCardsView);
-            this.gbCarsView.Location = new System.Drawing.Point(1, 269);
-            this.gbCarsView.Name = "gbCarsView";
-            this.gbCarsView.Size = new System.Drawing.Size(984, 192);
-            this.gbCarsView.TabIndex = 19;
-            this.gbCarsView.TabStop = false;
-            this.gbCarsView.Text = "CARDS:";
+            this.gbCardsView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.gbCardsView.Controls.Add(this.gwCardsView);
+            this.gbCardsView.Location = new System.Drawing.Point(1, 269);
+            this.gbCardsView.Name = "gbCardsView";
+            this.gbCardsView.Size = new System.Drawing.Size(984, 192);
+            this.gbCardsView.TabIndex = 19;
+            this.gbCardsView.TabStop = false;
+            this.gbCardsView.Text = "CARDS:";
             // 
             // gbClientInfo
             // 
             this.gbClientInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbClientInfo.Controls.Add(this.gbAccStatus);
             this.gbClientInfo.Controls.Add(this.gbCustContact);
             this.gbClientInfo.Controls.Add(this.groupBox1);
             this.gbClientInfo.Controls.Add(this.gbCustAddress);
@@ -205,6 +209,7 @@
             this.lblEMailValue.Size = new System.Drawing.Size(150, 25);
             this.lblEMailValue.TabIndex = 13;
             this.lblEMailValue.Text = "____________________";
+            this.lblEMailValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPhoneValue
             // 
@@ -216,6 +221,7 @@
             this.lblPhoneValue.Size = new System.Drawing.Size(150, 25);
             this.lblPhoneValue.TabIndex = 12;
             this.lblPhoneValue.Text = "____________________";
+            this.lblPhoneValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblEMail
             // 
@@ -227,6 +233,7 @@
             this.lblEMail.Size = new System.Drawing.Size(35, 25);
             this.lblEMail.TabIndex = 12;
             this.lblEMail.Text = "Email:";
+            this.lblEMail.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPhone
             // 
@@ -238,6 +245,7 @@
             this.lblPhone.Size = new System.Drawing.Size(79, 25);
             this.lblPhone.TabIndex = 12;
             this.lblPhone.Text = "Phone number:";
+            this.lblPhone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox1
             // 
@@ -246,13 +254,13 @@
             this.groupBox1.Controls.Add(this.cmdAllTransactions);
             this.groupBox1.Controls.Add(this.cmdNewTransaction);
             this.groupBox1.Controls.Add(this.cmdUpdate);
-            this.groupBox1.Controls.Add(this.cmdCloseAccount);
-            this.groupBox1.Location = new System.Drawing.Point(665, 19);
+            this.groupBox1.Controls.Add(this.cmdCloseOpenAccount);
+            this.groupBox1.Location = new System.Drawing.Point(665, 122);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(289, 228);
+            this.groupBox1.Size = new System.Drawing.Size(289, 125);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Account functions:";
             // 
             // gbCustAddress
             // 
@@ -281,6 +289,7 @@
             this.lblCountryValue.Size = new System.Drawing.Size(150, 25);
             this.lblCountryValue.TabIndex = 11;
             this.lblCountryValue.Text = "____________________";
+            this.lblCountryValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblCityValue
             // 
@@ -292,6 +301,7 @@
             this.lblCityValue.Size = new System.Drawing.Size(150, 25);
             this.lblCityValue.TabIndex = 10;
             this.lblCityValue.Text = "____________________";
+            this.lblCityValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPostcodeValue
             // 
@@ -303,7 +313,7 @@
             this.lblPostcodeValue.Size = new System.Drawing.Size(150, 25);
             this.lblPostcodeValue.TabIndex = 9;
             this.lblPostcodeValue.Text = "____________________";
-            this.lblPostcodeValue.Click += new System.EventHandler(this.label6_Click);
+            this.lblPostcodeValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblAddressValue
             // 
@@ -315,6 +325,7 @@
             this.lblAddressValue.Size = new System.Drawing.Size(150, 25);
             this.lblAddressValue.TabIndex = 8;
             this.lblAddressValue.Text = "____________________";
+            this.lblAddressValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblCountry
             // 
@@ -326,6 +337,7 @@
             this.lblCountry.Size = new System.Drawing.Size(46, 25);
             this.lblCountry.TabIndex = 4;
             this.lblCountry.Text = "Country:";
+            this.lblCountry.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblCity
             // 
@@ -337,6 +349,7 @@
             this.lblCity.Size = new System.Drawing.Size(38, 25);
             this.lblCity.TabIndex = 3;
             this.lblCity.Text = "CityID:";
+            this.lblCity.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPostcode
             // 
@@ -348,6 +361,7 @@
             this.lblPostcode.Size = new System.Drawing.Size(55, 25);
             this.lblPostcode.TabIndex = 2;
             this.lblPostcode.Text = "Postcode:";
+            this.lblPostcode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblAddress
             // 
@@ -359,6 +373,7 @@
             this.lblAddress.Size = new System.Drawing.Size(48, 25);
             this.lblAddress.TabIndex = 1;
             this.lblAddress.Text = "Address:";
+            this.lblAddress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // gbCustInfo
             // 
@@ -395,6 +410,7 @@
             this.lblIDCardNumValue.Size = new System.Drawing.Size(150, 25);
             this.lblIDCardNumValue.TabIndex = 13;
             this.lblIDCardNumValue.Text = "____________________";
+            this.lblIDCardNumValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblBDayValue
             // 
@@ -406,6 +422,7 @@
             this.lblBDayValue.Size = new System.Drawing.Size(150, 25);
             this.lblBDayValue.TabIndex = 12;
             this.lblBDayValue.Text = "____________________";
+            this.lblBDayValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblLNameValue
             // 
@@ -417,6 +434,7 @@
             this.lblLNameValue.Size = new System.Drawing.Size(150, 25);
             this.lblLNameValue.TabIndex = 11;
             this.lblLNameValue.Text = "____________________";
+            this.lblLNameValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblMNameValue
             // 
@@ -428,6 +446,7 @@
             this.lblMNameValue.Size = new System.Drawing.Size(150, 25);
             this.lblMNameValue.TabIndex = 10;
             this.lblMNameValue.Text = "____________________";
+            this.lblMNameValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblFNameValue
             // 
@@ -439,6 +458,7 @@
             this.lblFNameValue.Size = new System.Drawing.Size(150, 25);
             this.lblFNameValue.TabIndex = 9;
             this.lblFNameValue.Text = "____________________";
+            this.lblFNameValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblTitleValue
             // 
@@ -450,6 +470,7 @@
             this.lblTitleValue.Size = new System.Drawing.Size(150, 25);
             this.lblTitleValue.TabIndex = 8;
             this.lblTitleValue.Text = "____________________";
+            this.lblTitleValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblCustIdValue
             // 
@@ -461,6 +482,7 @@
             this.lblCustIdValue.Size = new System.Drawing.Size(150, 25);
             this.lblCustIdValue.TabIndex = 7;
             this.lblCustIdValue.Text = "____________________";
+            this.lblCustIdValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblIDCardNum
             // 
@@ -472,6 +494,7 @@
             this.lblIDCardNum.Size = new System.Drawing.Size(81, 25);
             this.lblIDCardNum.TabIndex = 6;
             this.lblIDCardNum.Text = "IDCard number:";
+            this.lblIDCardNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblBDay
             // 
@@ -483,6 +506,7 @@
             this.lblBDay.Size = new System.Drawing.Size(48, 25);
             this.lblBDay.TabIndex = 5;
             this.lblBDay.Text = "Birthday:";
+            this.lblBDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblLName
             // 
@@ -494,6 +518,7 @@
             this.lblLName.Size = new System.Drawing.Size(56, 25);
             this.lblLName.TabIndex = 4;
             this.lblLName.Text = "Lastname:";
+            this.lblLName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblMName
             // 
@@ -505,6 +530,7 @@
             this.lblMName.Size = new System.Drawing.Size(67, 25);
             this.lblMName.TabIndex = 3;
             this.lblMName.Text = "Middlename:";
+            this.lblMName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblFName
             // 
@@ -516,6 +542,7 @@
             this.lblFName.Size = new System.Drawing.Size(55, 25);
             this.lblFName.TabIndex = 2;
             this.lblFName.Text = "Firstname:";
+            this.lblFName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblTitle
             // 
@@ -527,6 +554,7 @@
             this.lblTitle.Size = new System.Drawing.Size(30, 25);
             this.lblTitle.TabIndex = 1;
             this.lblTitle.Text = "Title:";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblCustId
             // 
@@ -538,6 +566,7 @@
             this.lblCustId.Size = new System.Drawing.Size(73, 25);
             this.lblCustId.TabIndex = 0;
             this.lblCustId.Text = "Customers ID:";
+            this.lblCustId.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblSuffixValue
             // 
@@ -549,6 +578,7 @@
             this.lblSuffixValue.Size = new System.Drawing.Size(150, 25);
             this.lblSuffixValue.TabIndex = 15;
             this.lblSuffixValue.Text = "____________________";
+            this.lblSuffixValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblSuffix
             // 
@@ -560,13 +590,35 @@
             this.lblSuffix.Size = new System.Drawing.Size(33, 25);
             this.lblSuffix.TabIndex = 14;
             this.lblSuffix.Text = "Suffix";
+            this.lblSuffix.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // gbAccStatus
+            // 
+            this.gbAccStatus.Controls.Add(this.lblStatusValue);
+            this.gbAccStatus.Location = new System.Drawing.Point(665, 22);
+            this.gbAccStatus.Name = "gbAccStatus";
+            this.gbAccStatus.Size = new System.Drawing.Size(289, 100);
+            this.gbAccStatus.TabIndex = 20;
+            this.gbAccStatus.TabStop = false;
+            this.gbAccStatus.Text = "ACCOUNT STATUS:";
+            // 
+            // lblStatusValue
+            // 
+            this.lblStatusValue.AutoSize = true;
+            this.lblStatusValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblStatusValue.Location = new System.Drawing.Point(6, 19);
+            this.lblStatusValue.MinimumSize = new System.Drawing.Size(275, 75);
+            this.lblStatusValue.Name = "lblStatusValue";
+            this.lblStatusValue.Size = new System.Drawing.Size(275, 75);
+            this.lblStatusValue.TabIndex = 0;
+            this.lblStatusValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmClientManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 461);
-            this.Controls.Add(this.gbCarsView);
+            this.Controls.Add(this.gbCardsView);
             this.Controls.Add(this.gbClientInfo);
             this.MaximumSize = new System.Drawing.Size(1000, 600);
             this.MinimumSize = new System.Drawing.Size(1000, 500);
@@ -574,7 +626,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmClientManagement";
             ((System.ComponentModel.ISupportInitialize)(this.gwCardsView)).EndInit();
-            this.gbCarsView.ResumeLayout(false);
+            this.gbCardsView.ResumeLayout(false);
             this.gbClientInfo.ResumeLayout(false);
             this.gbCustContact.ResumeLayout(false);
             this.gbCustContact.PerformLayout();
@@ -583,6 +635,8 @@
             this.gbCustAddress.PerformLayout();
             this.gbCustInfo.ResumeLayout(false);
             this.gbCustInfo.PerformLayout();
+            this.gbAccStatus.ResumeLayout(false);
+            this.gbAccStatus.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -590,12 +644,12 @@
         #endregion
         private System.Windows.Forms.Button cmdUpdate;
         private System.Windows.Forms.Button cmdNewTransaction;
-        private System.Windows.Forms.Button cmdCloseAccount;
+        private System.Windows.Forms.Button cmdCloseOpenAccount;
         private System.Windows.Forms.Button cmdAllTransactions;
         private System.Windows.Forms.Button cmdWithdrawal;
         private System.Windows.Forms.Button cmdDeposit;
         private System.Windows.Forms.DataGridView gwCardsView;
-        private System.Windows.Forms.GroupBox gbCarsView;
+        private System.Windows.Forms.GroupBox gbCardsView;
         private System.Windows.Forms.GroupBox gbClientInfo;
         private System.Windows.Forms.GroupBox gbCustContact;
         private System.Windows.Forms.GroupBox gbCustAddress;
@@ -629,5 +683,7 @@
         private System.Windows.Forms.Label lblAddress;
         private System.Windows.Forms.Label lblSuffixValue;
         private System.Windows.Forms.Label lblSuffix;
+        private System.Windows.Forms.GroupBox gbAccStatus;
+        private System.Windows.Forms.Label lblStatusValue;
     }
 }

@@ -48,11 +48,83 @@ namespace BankSystem
             lblPhoneValue.Text = _custtt[0].Phone.ToString();
             lblEMailValue.Text = _custtt[0].Email.ToString() == "null" ? "" : _custtt[0].Email.ToString();
             #endregion
+            #region Status set Active/Closed
+            if (_custtt[0].Active)
+            {
+                OpenAcc();
+            }
+            else
+            {
+                CloseAcc();
+            }
+            #endregion
         }
 
+        /// <summary>
+        /// Set account to active.
+        /// </summary>
+        private void OpenAcc()
+        {
+            lblStatusValue.Text = "ACTIVE";
+            lblStatusValue.ForeColor = Color.Lime;
+            cmdCloseOpenAccount.Text = "Close account";
+
+            lblBDayValue.Visible = true;
+            lblIDCardNumValue.Visible = true;
+            lblAddressValue.Visible = true;
+            lblPostcodeValue.Visible = true;
+            lblCityValue.Visible = true;
+            lblCountryValue.Visible = true;
+            lblPhoneValue.Visible = true;
+            lblEMailValue.Visible = true;
+            gbCardsView.Visible = true;
+        }
+        /// <summary>
+        /// Sets account to closed.
+        /// </summary>
+        private void CloseAcc()
+        {
+            lblStatusValue.Text = "CLOSED";
+            lblStatusValue.ForeColor = Color.Red;
+            cmdCloseOpenAccount.Text = "Open account";
+
+            lblBDayValue.Visible = false;
+            lblIDCardNumValue.Visible = false;
+            lblAddressValue.Visible = false;
+            lblPostcodeValue.Visible = false;
+            lblCityValue.Visible = false;
+            lblCountryValue.Visible = false;
+            lblPhoneValue.Visible = false;
+            lblEMailValue.Visible = false;
+            gbCardsView.Visible = false;
 
 
+        }
+        /// <summary>
+        /// Button for  closing and opening account
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmdCloseOpenAccount_Click(object sender, EventArgs e)
+        {
 
+            if (lblStatusValue.Text == "ACTIVE")
+            {
+                MessageBox.Show("Are you sure?", "Closing", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                
+                CloseAcc();
+            }
+            else if (lblStatusValue.Text == "CLOSED")
+            {
+                MessageBox.Show("Are you sure?", "Opening", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+               
+                OpenAcc();
+            }
+
+            
+            
+
+        }
 
 
 
@@ -133,17 +205,7 @@ namespace BankSystem
             }
         }
 
-        private void cmdCloseAccount_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Hodor?", "Hodor!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                DialogResult = DialogResult.OK;
-            }
-        }
-// TODO DELETE THIS!!!
-        private void label6_Click(object sender, EventArgs e)
-        {
+        
 
-        }
     }
 }

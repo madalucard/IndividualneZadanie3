@@ -51,7 +51,7 @@ namespace Data.Repositories
                                     _cust.Title = reader.IsDBNull(1) ? "null" : reader.GetString(1);
                                     _cust.Firstname = reader.GetString(2);
                                     _cust.Middlename = reader.IsDBNull(3) ? "null" : reader.GetString(3);
-                                    _cust.Lastname =reader.GetString(4);
+                                    _cust.Lastname = reader.GetString(4);
                                     _cust.Suffix = reader.IsDBNull(5) ? "null" : reader.GetString(6);
                                     _cust.Birthdate = reader.GetDateTime(6);
                                     _cust.IdCardPersonal = reader.GetString(7);
@@ -271,6 +271,72 @@ namespace Data.Repositories
                 //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
             }
             return _customers;
+        }
+
+        public void RegisterCustomer(string title, string fName, string mName, string lName, string suffix, DateTime birthdate, string idCardPers, string address, string postcode, int cityId, string country, string phone, string email)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"INSERT INTO [dbo].[Customers]
+                                                           ([Title]
+                                                           ,[Firstname]
+                                                           ,[Middlename]
+                                                           ,[Lastname]
+                                                           ,[Suffix]
+                                                           ,[Birthdate]
+                                                           ,[IdCardPersonal]
+                                                           ,[Address]
+                                                           ,[Postcode]
+                                                           ,[CityID]
+                                                           ,[Country]
+                                                           ,[Phone]
+                                                           ,[Email]
+                                                           ,[Active])
+                                                     VALUES
+                                                           (@title
+                                                           ,@fName
+                                                           ,@mName
+                                                           ,@lName
+                                                           ,@suffix
+                                                           ,@birthdate
+                                                           ,@idCardPers
+                                                           ,@address
+                                                           ,@postcode
+                                                           ,@cityId
+                                                           ,@country
+                                                           ,@phone
+                                                           ,@email
+                                                           ,1)";
+                        command.Parameters.Add("@title", SqlDbType.NVarChar).Value = title;
+                        command.Parameters.Add("@fName", SqlDbType.NVarChar).Value = fName;
+                        command.Parameters.Add("@mName", SqlDbType.NVarChar).Value = mName;
+                        command.Parameters.Add("@lName", SqlDbType.NVarChar).Value = lName;
+                        command.Parameters.Add("@suffix", SqlDbType.NVarChar).Value = suffix;
+                        command.Parameters.Add("@birthdate", SqlDbType.Date).Value = birthdate;
+                        command.Parameters.Add("@idCardPers", SqlDbType.NVarChar).Value = idCardPers;
+                        command.Parameters.Add("@address", SqlDbType.NVarChar).Value = address;
+                        command.Parameters.Add("@postcode", SqlDbType.NVarChar).Value = postcode;
+                        command.Parameters.Add("@cityId", SqlDbType.Int).Value = cityId;
+                        command.Parameters.Add("@country", SqlDbType.NVarChar).Value = country;
+                        command.Parameters.Add("@phone", SqlDbType.NVarChar).Value = phone;
+                        command.Parameters.Add("@email", SqlDbType.NVarChar).Value = email;
+
+                        command.ExecuteNonQuery();
+                        Debug.Write("Customer registered!");
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+            }
+            catch
+            {
+                //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+            }
         }
     }
 }
