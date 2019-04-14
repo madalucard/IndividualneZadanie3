@@ -60,7 +60,7 @@ namespace Data.Repositories
                                     _cust.CityId = reader.GetInt32(10);
                                     _cust.Country = reader.GetString(11);
                                     _cust.Phone = reader.GetString(12);
-                                    _cust.Country = reader.IsDBNull(13) ? "null" : reader.GetString(13);
+                                    _cust.Email = reader.IsDBNull(13) ? "null" : reader.GetString(13);
                                     _cust.Active = reader.GetBoolean(14);
 
                                     _customers.Add(_cust);
