@@ -101,6 +101,11 @@ namespace BankSystem
 
         #endregion
 
+        public DataTable AllAccounts()
+        {
+            return _tranRep.AllAccounts();
+        }
+
         public DataSet FillDataSet(int accId)
         {
             return _tranRep.FillDataSet(accId);

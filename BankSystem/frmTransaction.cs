@@ -12,6 +12,10 @@ namespace BankSystem
 {
     public partial class frmTransaction : Form
     {
+        ViewModelBank _vmb = new ViewModelBank();
+        DataTable _senders = new DataTable();
+        DataTable _recievers = new DataTable();
+
         public frmTransaction()
         {
             InitializeComponent();
@@ -21,8 +25,27 @@ namespace BankSystem
         {
             InitializeComponent();
 
+            _senders = _vmb.AllAccounts();
+            _recievers = _vmb.AllAccounts();
+
+
+            //cmbSenders.DataSource = _senders;
+            //cmbSenders.DisplayMember = "c.Lastname";
+
+            cmbSenders.DataSource = _senders;
+            cmbSenders.DisplayMember = "c.Lastname";
+            //CmbPrijimatelAdresa.DataSource = Prijimatel;
+            //CmbPrijimatelAdresa.DisplayMember = "Adresa";
+            //CmbPrijimatelIBAN.DataSource = Prijimatel;
+            //CmbPrijimatelIBAN.DisplayMember = "UcetIBAN";
+
+
+
             switch (i)
             {
+
+
+
                 case 1:
 
 
@@ -51,10 +74,13 @@ namespace BankSystem
 
             }
 
-        
 
 
+        }
 
+        private void label7_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

@@ -145,5 +145,54 @@ namespace Data.Repositories
             DataTable dt = ds.Tables["Person"];
             return ds;
         }
+
+        //public DataSet DataSetAllAccounts   ()
+        //{
+        //    SqlConnection connection = new SqlConnection(CONNECTION_STRING);
+        //    SqlCommand command = connection.CreateCommand();
+        //    command.CommandText = @"select a.IdAccount, a.IdCustomers, c.Firstname, c.Lastname, a.Iban, a.Amount, a.Overdraft
+        //                            from Account a
+        //                            left join Customers c on c.IdCustomer = a.IdCustomers";
+        //    //command.Parameters.Add("@accId", SqlDbType.Int).Value = accId;
+
+        //    SqlDataAdapter adapter = new SqlDataAdapter(command);
+            
+        //    DataSet ds = new DataSet();
+        //    adapter.Fill(ds, "c.Lastname");
+        //    DataTable dt = ds.Tables["c.Lastname"];
+        //    return ds;
+
+
+        //}
+
+
+        public DataTable AllAccounts()
+        {
+
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = @"select a.IdAccount, a.IdCustomers, c.Firstname, c.Lastname, a.Iban, a.Amount, a.Overdraft
+                                            from Account a
+                                            left join Customers c on c.IdCustomer = a.IdCustomers";
+                    //command.Parameters.AddWithValue("@ID", clientID);
+
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds, "Account");
+                        DataTable dt = ds.Tables["Account"];
+
+                        return dt;
+                    }
+                }
+            }
+        }
+
+
+
     }
 }
