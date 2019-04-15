@@ -13,7 +13,7 @@ namespace Data.Repositories
     public class AccountRepository
     {
         private const string CONNECTION_STRING = "Server=TRANSFORMER3\\SQLEXPRESS2016;Database=TransformerBank;Trusted_Connection=True;";
-        private const string CONNECTION_STRING_HOME_DB = "Server=DESKTOP-V0H80T3\\SQLEXPRESS;Database=TransformerBank;Trusted_Connection=True;";
+        //private const string CONNECTION_STRING = "Server=DESKTOP-V0H80T3\\SQLEXPRESS;Database=TransformerBank;Trusted_Connection=True;";
 
         /// <summary>
         /// Generate random slovak 24 spaces Iban in form SK+random numbers
@@ -44,7 +44,7 @@ namespace Data.Repositories
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");
@@ -100,7 +100,7 @@ namespace Data.Repositories
             List<Account> _accounts = new List<Account>();
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");
@@ -150,12 +150,12 @@ namespace Data.Repositories
         /// Returns last created Account
         /// </summary>
         /// <returns>Last created Account</returns>
-        public Account SelectLastAccount()
+        public int SelectLastAccount()
         {
-            Account _acc = new Account();
+            int newId = 0;
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");
@@ -164,28 +164,28 @@ namespace Data.Repositories
                     {
                         command.CommandText = @"select max(IdAccount)
                                                 from Account";
-                        
-                        try
-                        {
-                            using (SqlDataReader reader = command.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
+                        newId = int.Parse(command.ExecuteScalar().ToString());
+                        //try
+                        //{
+                        //    using (SqlDataReader reader = command.ExecuteReader())
+                        //    {
+                        //        while (reader.Read())
+                        //        {
                                     
-                                    _acc.IdAccount = reader.GetInt32(0);
-                                    _acc.IdCustomer = reader.GetInt32(1);
-                                    _acc.Iban = reader.GetString(2);
-                                    _acc.AccName = reader.GetString(3);
-                                    _acc.Amount = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4);
-                                    _acc.Overdraft = reader.GetDecimal(5);
-                                    _acc.IdCompany = reader.IsDBNull(6) ? 0 : reader.GetInt32(6);
-                                    _acc.Active = reader.GetBoolean(7);                                }
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            //TODO something with Reader exceptions.... Debug.WriteLine(e.ToString());
-                        }
+                        //            _acc.IdAccount = reader.GetInt32(0);
+                        //            _acc.IdCustomer = reader.GetInt32(1);
+                        //            _acc.Iban = reader.GetString(2);
+                        //            _acc.AccName = reader.GetString(3);
+                        //            _acc.Amount = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4);
+                        //            _acc.Overdraft = reader.GetDecimal(5);
+                        //            _acc.IdCompany = reader.IsDBNull(6) ? 0 : reader.GetInt32(6);
+                        //            _acc.Active = reader.GetBoolean(7);                                }
+                        //    }
+                        //}
+                        //catch (Exception)
+                        //{
+                        //    //TODO something with Reader exceptions.... Debug.WriteLine(e.ToString());
+                        //}
                         Debug.WriteLine("Connection to DB Closed!");
                     }
                 }
@@ -194,7 +194,7 @@ namespace Data.Repositories
             {
                 //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
             }
-            return _acc;
+            return newId;
         }
 
         /// <summary>
@@ -204,12 +204,12 @@ namespace Data.Repositories
         /// <param name="accName">Name of account</param>
         /// <param name="overdraft">Maximal overdraft</param>
         /// <returns>New account</returns>
-        public Account RegisterAccount(int idCustomer, string accName, int overdraft)
+        public int RegisterAccount(int idCustomer, string accName, int overdraft)
         {
             string iban = IbanGenerator();
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");
@@ -223,16 +223,16 @@ namespace Data.Repositories
                                                        ,[Overdraft]
                                                        ,[IdCompany]
                                                        ,[Active])
-                                                OUTPUT IdAccount
+                                                
                                                 VALUES
-                                                       (@title
+                                                       (@idCustomer
                                                        ,@iban
                                                        ,@accName
                                                        ,0
                                                        ,@overdraft
                                                        ,null
-                                                       ,1";
-                        command.Parameters.Add("@title", SqlDbType.Int).Value = idCustomer;
+                                                       ,1)";
+                        command.Parameters.Add("@idCustomer", SqlDbType.Int).Value = idCustomer;
                         command.Parameters.Add("@iban", SqlDbType.NVarChar).Value = iban;
                         command.Parameters.Add("@accName", SqlDbType.NVarChar).Value = accName;
                         command.Parameters.Add("@overdraft", SqlDbType.Decimal).Value = overdraft;

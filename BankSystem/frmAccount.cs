@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,10 +33,11 @@ namespace BankSystem
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            
+            int ruturnedID=0;
             StringBuilder sb = new StringBuilder();
             sb.Append($"{txtEmail1.Text.ToString()}@{txtEmail2.Text.ToString()}");
-            _vmb.RegisterCustomers(txtTitle.Text.ToString(),
+
+            ruturnedID = _vmb.RegisterCustomers(txtTitle.Text.ToString(),
                                     txtFName.Text.ToString(),
                                     txtMName.Text.ToString(),
                                     txtLName.Text.ToString(),
@@ -48,8 +50,15 @@ namespace BankSystem
                                     txtCountry.Text.ToString(),
                                     txtPhone.Text.ToString(),
                                     sb.ToString());
-                            //  TODO natlacit tam ID customera
-            _vmb.RegisterAccount(,txtAccName.Text.ToString(),int.Parse(txtOverdraft.Text));
+
+
+            //  TODO natlacit tam ID customera
+            _vmb.RegisterAccount(ruturnedID, txtAccName.Text.ToString(), int.Parse(txtOverdraft.Text));
+            using (frmClientManagement newForm = new frmClientManagement(ruturnedID))
+            {
+                newForm.ShowDialog();
+            }
+
         }
     }
 }

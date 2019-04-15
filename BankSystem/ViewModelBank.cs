@@ -99,11 +99,11 @@ namespace BankSystem
         #endregion
 
         #region frmAccount
-        public Customers RegisterCustomers(string title, string fName, string mName, string lName, string suffix, DateTime birthdate, string idCardPers, string address, string postcode, int cityId, string country, string phone, string email)
+        public int RegisterCustomers(string title, string fName, string mName, string lName, string suffix, DateTime birthdate, string idCardPers, string address, string postcode, int cityId, string country, string phone, string email)
         {
             return _custRep.RegisterCustomer(title, fName, mName, lName, suffix, birthdate, idCardPers, address, postcode, cityId, country, phone, email);
         }
-        public Account RegisterAccount(int idCustomer, string accName, int overdraft)
+        public int RegisterAccount(int idCustomer, string accName, int overdraft)
         {
             return _accRep.RegisterAccount(idCustomer, accName, overdraft);
         }

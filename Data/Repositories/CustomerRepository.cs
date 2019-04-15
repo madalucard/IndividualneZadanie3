@@ -14,7 +14,7 @@ namespace Data.Repositories
     {
         //TODO IF conection to work now working then use home connection string in all cases
         private const string CONNECTION_STRING = "Server=TRANSFORMER3\\SQLEXPRESS2016;Database=TransformerBank;Trusted_Connection=True;";
-        private const string CONNECTION_STRING_HOME_DB = "Server=DESKTOP-V0H80T3\\SQLEXPRESS;Database=TransformerBank;Trusted_Connection=True;";
+        //private const string CONNECTION_STRING = "Server=DESKTOP-V0H80T3\\SQLEXPRESS;Database=TransformerBank;Trusted_Connection=True;";
 
         /// <summary>
         /// Return list of customers selected by ID
@@ -27,7 +27,7 @@ namespace Data.Repositories
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");
@@ -52,7 +52,7 @@ namespace Data.Repositories
                                     _cust.Firstname = reader.GetString(2);
                                     _cust.Middlename = reader.IsDBNull(3) ? "null" : reader.GetString(3);
                                     _cust.Lastname = reader.GetString(4);
-                                    _cust.Suffix = reader.IsDBNull(5) ? "null" : reader.GetString(6);
+                                    _cust.Suffix = reader.IsDBNull(5) ? "null" : reader.GetString(5);
                                     _cust.Birthdate = reader.GetDateTime(6);
                                     _cust.IdCardPersonal = reader.GetString(7);
                                     _cust.Address = reader.GetString(8);
@@ -92,7 +92,7 @@ namespace Data.Repositories
             List<Customers> _customers = new List<Customers>();
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");
@@ -155,7 +155,7 @@ namespace Data.Repositories
             List<Customers> _customers = new List<Customers>();
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");
@@ -219,7 +219,7 @@ namespace Data.Repositories
             List<Customers> _customers = new List<Customers>();
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");
@@ -277,13 +277,13 @@ namespace Data.Repositories
         /// Return last customer
         /// </summary>
         /// <returns>Last Customer</returns>
-        public Customers SelectLastCustomer()
+        public int SelectLastCustomer()
         {
-            Customers _cust = new Customers();
-
+            //Customers _cust = new Customers();
+            int newId=0;
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");
@@ -294,36 +294,37 @@ namespace Data.Repositories
                         ///TODO Select with city name instead of ID
                         command.CommandText = @"select max(IdCustomer)
                                                 from Customers";
-                        try
-                        {
-                            using (SqlDataReader reader = command.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
+                        newId = int.Parse(command.ExecuteScalar().ToString());
+                        //try
+                        //{
+                            //using (SqlDataReader reader = command.ExecuteReader())
+                            //{
+                                //while (reader.Read())
+                                //{
                                     
-                                    _cust.IdCustomer = reader.GetInt32(0);
-                                    _cust.Title = reader.IsDBNull(1) ? "null" : reader.GetString(1);
-                                    _cust.Firstname = reader.GetString(2);
-                                    _cust.Middlename = reader.IsDBNull(3) ? "null" : reader.GetString(3);
-                                    _cust.Lastname = reader.GetString(4);
-                                    _cust.Suffix = reader.IsDBNull(5) ? "null" : reader.GetString(6);
-                                    _cust.Birthdate = reader.GetDateTime(6);
-                                    _cust.IdCardPersonal = reader.GetString(7);
-                                    _cust.Address = reader.GetString(8);
-                                    _cust.Postcode = reader.GetString(9);
-                                    _cust.CityId = reader.GetInt32(10);
-                                    _cust.Country = reader.GetString(11);
-                                    _cust.Phone = reader.GetString(12);
-                                    _cust.Email = reader.IsDBNull(13) ? "null" : reader.GetString(13);
-                                    _cust.Active = reader.GetBoolean(14);
+                                //    _cust.IdCustomer = reader.GetInt32(0);
+                                //    _cust.Title = reader.IsDBNull(1) ? "null" : reader.GetString(1);
+                                //    _cust.Firstname = reader.GetString(2);
+                                //    _cust.Middlename = reader.IsDBNull(3) ? "null" : reader.GetString(3);
+                                //    _cust.Lastname = reader.GetString(4);
+                                //    _cust.Suffix = reader.IsDBNull(5) ? "null" : reader.GetString(5);
+                                //    _cust.Birthdate = reader.GetDateTime(6);
+                                //    _cust.IdCardPersonal = reader.GetString(7);
+                                //    _cust.Address = reader.GetString(8);
+                                //    _cust.Postcode = reader.GetString(9);
+                                //    _cust.CityId = reader.GetInt32(10);
+                                //    _cust.Country = reader.GetString(11);
+                                //    _cust.Phone = reader.GetString(12);
+                                //    _cust.Email = reader.IsDBNull(13) ? "null" : reader.GetString(13);
+                                //    _cust.Active = reader.GetBoolean(14);
 
-                                }
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            //TODO something with Reader exceptions.... Debug.WriteLine(e.ToString());
-                        }
+                                //}
+                            //}
+                        //}
+                        //catch (Exception)
+                        //{
+                        //    //TODO something with Reader exceptions.... Debug.WriteLine(e.ToString());
+                        //}
                         Debug.WriteLine("Connection to DB Closed!");
                     }
                 }
@@ -332,7 +333,7 @@ namespace Data.Repositories
             {
                 //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
             }
-            return _cust;
+            return newId;
         }
 
         /// <summary>
@@ -352,11 +353,11 @@ namespace Data.Repositories
         /// <param name="phone">Phone number</param>
         /// <param name="email">Email</param>
         /// <returns>Last created customer</returns>
-        public Customers RegisterCustomer(string title, string fName, string mName, string lName, string suffix, DateTime birthdate, string idCardPers, string address, string postcode, int cityId, string country, string phone, string email)
+        public int RegisterCustomer(string title, string fName, string mName, string lName, string suffix, DateTime birthdate, string idCardPers, string address, string postcode, int cityId, string country, string phone, string email)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");

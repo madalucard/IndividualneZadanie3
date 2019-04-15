@@ -12,7 +12,7 @@ namespace Data.Repositories
     public class TransactionRepository
     {
         private const string CONNECTION_STRING = "Server=TRANSFORMER3\\SQLEXPRESS2016;Database=TransformerBank;Trusted_Connection=True;";
-        private const string CONNECTION_STRING_HOME_DB = "Server=DESKTOP-V0H80T3\\SQLEXPRESS;Database=TransformerBank;Trusted_Connection=True;";
+        //private const string CONNECTION_STRING = "Server=DESKTOP-V0H80T3\\SQLEXPRESS;Database=TransformerBank;Trusted_Connection=True;";
         private List<Transaction> _transactions = new List<Transaction>();
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Data.Repositories
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");

@@ -14,7 +14,7 @@ namespace Data.Repositories
     {
         //TODO IF conection to work now working then use home connection string in all cases
         private const string CONNECTION_STRING = "Server=TRANSFORMER3\\SQLEXPRESS2016;Database=TransformerBank;Trusted_Connection=True;";
-        private const string CONNECTION_STRING_HOME_DB = "Server=DESKTOP-V0H80T3\\SQLEXPRESS;Database=TransformerBank;Trusted_Connection=True;";
+        //private const string CONNECTION_STRING = "Server=DESKTOP-V0H80T3\\SQLEXPRESS;Database=TransformerBank;Trusted_Connection=True;";
 
         public List<Cards> SelectAllCardsByAccID(int accId)
         {
@@ -22,7 +22,7 @@ namespace Data.Repositories
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING_HOME_DB))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
                     connection.Open();
                     Debug.WriteLine("Connection to DB opened!");
