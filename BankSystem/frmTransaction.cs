@@ -16,5 +16,45 @@ namespace BankSystem
         {
             InitializeComponent();
         }
+
+        public frmTransaction(int i)
+        {
+            InitializeComponent();
+
+            switch (i)
+            {
+                case 1:
+
+
+
+
+                    break;
+                case 2:
+
+
+
+                    break;
+                case 3:
+                    //do some stuff
+                    break;
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+
+        
+
+
+
+
     }
 }

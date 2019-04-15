@@ -23,13 +23,20 @@ namespace BankSystem
            
         }
 
+
+
+
         /// <summary>
         /// Used when viewing selected client's transactions.
         /// </summary>
         /// <param name="clientId"></param>
-        public frmTransactions(int clientId)
+        public frmTransactions(int IdAccount)
         {
             InitializeComponent();
+
+            gwTransactions.DataSource = _vmb.FillDataSet(IdAccount);
+            gwTransactions.DataMember = "Transactions for Account";
+
         }
     }
 }

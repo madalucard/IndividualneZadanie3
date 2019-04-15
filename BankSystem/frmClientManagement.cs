@@ -209,14 +209,7 @@ namespace BankSystem
                 OpenCust();
             }
         }
-
-
-
-
-
-
-
-
+                                 
         /// <summary>
         /// Opens formular for update customer(register)
         /// </summary>
@@ -229,43 +222,58 @@ namespace BankSystem
                 newForm.ShowDialog();
             }
         }
-
-        private void cmdDeposit_Click(object sender, EventArgs e)
-        {
-            using (frmTransaction newForm = new frmTransaction())
-            {
-                newForm.ShowDialog();
-            }
-        }
-
-        private void cmdWithdrawal_Click(object sender, EventArgs e)
-        {
-            using (frmTransaction newForm = new frmTransaction())
-            {
-                newForm.ShowDialog();
-            }
-        }
-
+        /// <summary>
+        /// Show all transaction from/for this account
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdAllTransactions_Click(object sender, EventArgs e)
         {
-            using (frmTransactions newForm = new frmTransactions(42))
+            using (frmTransactions newForm = new frmTransactions(_acc.IdAccount))
             {
                 newForm.ShowDialog();
             }
         }
-
+        /// <summary>
+        /// Opens formular for deposit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmdDeposit_Click(object sender, EventArgs e)
+        {
+            using (frmTransaction newForm = new frmTransaction(1))
+            {
+                newForm.ShowDialog();
+            }
+        }
+             
+        /// <summary>
+        /// opens formular for withdrawal
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmdWithdrawal_Click(object sender, EventArgs e)
+        {
+            using (frmTransaction newForm = new frmTransaction(2))
+            {
+                newForm.ShowDialog();
+            }
+        }
+       
+        /// <summary>
+        /// opens formular new transaction
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdNewTransaction_Click(object sender, EventArgs e)
         {
-            using (frmTransaction newForm = new frmTransaction())
+            using (frmTransaction newForm = new frmTransaction(3))
             {
                 newForm.ShowDialog();
             }
         }
 
       
-        private void lblAccNameValue_Click(object sender, EventArgs e)
-        {
-
-        }
+      
     }
 }

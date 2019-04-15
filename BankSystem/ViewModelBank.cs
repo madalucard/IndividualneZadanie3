@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -96,7 +97,17 @@ namespace BankSystem
 
 
 
+
+
         #endregion
+
+        public DataSet FillDataSet(int accId)
+        {
+            return _tranRep.FillDataSet(accId);
+        }
+
+
+
 
         #region frmAccount
         /// <summary>
@@ -183,8 +194,7 @@ namespace BankSystem
         {
             _accRep.UpdateAccount(idCustomer, accName, overdraf);
         }
-
-
+        
         #endregion
 
 

@@ -1,6 +1,7 @@
 ﻿using Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -75,6 +76,74 @@ namespace Data.Repositories
             return _transactions;
         }
 
+        //public List<Transaction> LoadAllTransactionForAcc(int accId)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+        //        {
+        //            connection.Open();
+        //            Debug.WriteLine("Connection to DB opened!");
 
+        //            using (SqlCommand command = connection.CreateCommand())
+        //            {
+        //                command.CommandText = @"select * 
+        //                                        from Transactions
+        //                                        where IdFrom = @accId or idTo =@accId";
+        //                command.Parameters.Add("@accId", SqlDbType.Int).Value = accId;
+        //                try
+        //                {
+        //                    using (SqlDataReader reader = command.ExecuteReader())
+        //                    {
+        //                        while (reader.Read())
+        //                        {
+        //                            Transaction _tran = new Transaction();
+
+        //                            _tran.IdTransaction = reader.GetInt32(0);
+        //                            _tran.IdFrom = reader.GetInt32(1);
+        //                            _tran.IdTo = reader.GetInt32(2);
+        //                            _tran.Value = reader.GetDecimal(3);
+        //                            _tran.Vs = reader.IsDBNull(4) ? "null" : reader.GetString(4);
+        //                            _tran.Ss = reader.IsDBNull(5) ? "null" : reader.GetString(5);
+        //                            _tran.Ks = reader.IsDBNull(6) ? "null" : reader.GetString(6);
+        //                            _tran.Message = reader.IsDBNull(7) ? "null" : reader.GetString(7);
+
+        //                            _transactions.Add(_tran);
+        //                            Debug.WriteLine("Transactions loaded");
+        //                        }
+        //                    }
+        //                }
+        //                catch (Exception)
+        //                {
+        //                    //TODO something with Reader exceptions.... Debug.WriteLine(e.ToString());
+        //                }
+        //            }
+        //            Debug.WriteLine("Connection to DB opened!");
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+        //    }
+        //    return _transactions;
+        //}
+
+        public DataSet FillDataSet(int accId)
+        {
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING);
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = @"select * 
+                                     from Transactions
+                                     where IdFrom = @accId or idTo =@accId";
+            command.Parameters.Add("@accId", SqlDbType.Int).Value = accId;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataSet ds = new DataSet();
+
+            adapter.Fill(ds, "Transactions for Account");
+
+            DataTable dt = ds.Tables["Person"];
+            return ds;
+        }
     }
 }
