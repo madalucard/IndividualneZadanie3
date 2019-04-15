@@ -414,5 +414,67 @@ namespace Data.Repositories
                 //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
             }
         }
+
+
+        public void ValueMinus(int idFrom, decimal value)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"UPDATE [dbo].[Account]
+                                                SET [Amount] = [Amount] - @value
+                                                WHERE [IdCustomers] = @idFrom ";
+                        command.Parameters.Add("@idFrom", SqlDbType.Int).Value = idFrom;
+                        command.Parameters.Add("@value", SqlDbType.Decimal).Value = value;
+
+                        command.ExecuteNonQuery();
+                        Debug.Write("Account amount decreased!");
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+            }
+            catch
+            {
+                //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+            }
+
+        }
+        public void ValuePlus(int idTo, decimal value)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"UPDATE [dbo].[Account]
+                                                SET [Amount] = [Amount] + @value;
+                                                WHERE [IdCustomers] = @idTo ";
+                        command.Parameters.Add("@idTo", SqlDbType.Int).Value = idTo;
+                        command.Parameters.Add("@value", SqlDbType.Decimal).Value = value;
+
+                        command.ExecuteNonQuery();
+                        Debug.Write("Account amount decreased!");
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+            }
+            catch
+            {
+                //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+            }
+
+        }
+
+
+
+
     }
 }

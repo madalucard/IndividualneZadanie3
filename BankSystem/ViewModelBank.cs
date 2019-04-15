@@ -95,7 +95,10 @@ namespace BankSystem
             return _cardRep.SelectAllCardsByAccID(accId);
         }
 
-
+        public void NewTransaction(Transaction tran)
+        {
+            _tranRep.NewTransaction(tran);
+        }
 
 
 
@@ -111,6 +114,15 @@ namespace BankSystem
             return _tranRep.FillDataSet(accId);
         }
 
+
+        public void ValuePlus(int idTo, decimal value)
+        {
+            _accRep.ValuePlus(idTo,value);
+        }
+        public void ValueMinus(int idFrom, decimal value)
+        {
+            _accRep.ValueMinus(idFrom, value);
+        }
 
 
 

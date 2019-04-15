@@ -194,5 +194,61 @@ namespace Data.Repositories
 
 
 
+
+
+
+
+
+        // TODO inserst. updater
+
+        public void NewTransaction(Transaction tran)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"INSERT INTO [dbo].[Transactions]
+                                                       ([IdFrom]
+                                                       ,[IdTo]
+                                                       ,[Value]
+                                                       ,[Vs]
+                                                       ,[Ss]
+                                                       ,[Ks]
+                                                       ,[Message])
+                                                 VALUES
+                                                       (@IdFrom
+                                                       ,@IdTo
+                                                       ,@Value
+                                                       ,@Vs
+                                                       ,@Ss
+                                                       ,@Ks
+                                                       ,@Message)";
+                        command.Parameters.Add("@IdFrom", SqlDbType.Int).Value = tran.IdFrom;
+                        command.Parameters.Add("@IdTo", SqlDbType.Int).Value = tran.IdTo;
+                        command.Parameters.Add("@Value", SqlDbType.Int).Value = tran.Value;
+                        command.Parameters.Add("@Vs", SqlDbType.NVarChar).Value = tran.Vs;
+                        command.Parameters.Add("@Ss", SqlDbType.NVarChar).Value = tran.Ss;
+                        command.Parameters.Add("@Ks", SqlDbType.NVarChar).Value = tran.Ks;
+                        command.Parameters.Add("@Message", SqlDbType.NVarChar).Value = tran.Message;
+                        command.ExecuteNonQuery();
+                    }
+                    Debug.WriteLine("Connection to DB opened!");
+                }
+            }
+            catch
+            {
+                //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+            }
+            //return _transactions;
+        }
+
+       
+
+
     }
 }

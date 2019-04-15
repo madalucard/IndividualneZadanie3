@@ -22,12 +22,13 @@ namespace BankSystem
         {
             InitializeComponent();
         }
+
         private void cmdManageAccount_Click(object sender, EventArgs e)
         {
-            //using (frmClientManagement newForm = new frmClientManagement())
-            //{
-            //    newForm.ShowDialog();
-            //}
+            using (frmClientManagement newForm = new frmClientManagement(Convert.ToInt32(gwClients.SelectedRows[0].Cells[0].Value)))
+            {
+                newForm.ShowDialog();
+            }
         }
 
         #region Watermark txtBxs
@@ -217,7 +218,7 @@ namespace BankSystem
 
         }
         /// <summary>
-        /// 
+        /// Find account by name(string) and load it to DataGridView.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

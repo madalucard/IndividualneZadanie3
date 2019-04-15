@@ -229,6 +229,8 @@
             this.gwClients.AllowUserToAddRows = false;
             this.gwClients.AllowUserToDeleteRows = false;
             this.gwClients.AllowUserToOrderColumns = true;
+            this.gwClients.AllowUserToResizeColumns = false;
+            this.gwClients.AllowUserToResizeRows = false;
             this.gwClients.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -236,7 +238,10 @@
             this.gwClients.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.gwClients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gwClients.Location = new System.Drawing.Point(12, 140);
+            this.gwClients.MultiSelect = false;
             this.gwClients.Name = "gwClients";
+            this.gwClients.RowHeadersVisible = false;
+            this.gwClients.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gwClients.Size = new System.Drawing.Size(560, 166);
             this.gwClients.TabIndex = 12;
             // 

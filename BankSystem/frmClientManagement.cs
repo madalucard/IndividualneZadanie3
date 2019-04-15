@@ -51,6 +51,16 @@ namespace BankSystem
 
             lblPhoneValue.Text = _custtt[0].Phone.ToString();
             lblEMailValue.Text = _custtt[0].Email.ToString() == "null" ? "" : _custtt[0].Email.ToString();
+
+            lblIDAccValue.Text = _acc.IdAccount.ToString();
+            lblAccNameValue.Text = _acc.AccName.ToString();
+            lblIbanValue.Text = _acc.Iban.ToString();
+            lblOverdraftValue.Text = _acc.Iban.ToString();
+            lblAmountValue.Text = _acc.Amount.ToString();
+
+
+
+
             #endregion
             #region Status set Active/Closed
             if (_custtt[0].Active)
@@ -62,14 +72,7 @@ namespace BankSystem
                 CloseCust();
             }
 
-            if (_acc.Active)
-            {
-                OpenAcc();
-            }
-            else
-            {
-                CloseAcc();
-            }
+           
             #endregion
         }
         /// <summary>

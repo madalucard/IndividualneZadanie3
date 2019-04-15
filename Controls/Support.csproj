@@ -55,5 +55,10 @@
   <ItemGroup>
     <Content Include="DLL\UselessLibrary.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="NumericTextbox.resx">
+      <DependentUpon>NumericTextbox.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
