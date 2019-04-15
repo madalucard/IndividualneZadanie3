@@ -99,13 +99,89 @@ namespace BankSystem
         #endregion
 
         #region frmAccount
+        /// <summary>
+        /// Register customer
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="fName"></param>
+        /// <param name="mName"></param>
+        /// <param name="lName"></param>
+        /// <param name="suffix"></param>
+        /// <param name="birthdate"></param>
+        /// <param name="idCardPers"></param>
+        /// <param name="address"></param>
+        /// <param name="postcode"></param>
+        /// <param name="cityId"></param>
+        /// <param name="country"></param>
+        /// <param name="phone"></param>
+        /// <param name="email"></param>
+        /// <returns>Id of registered customer</returns>
         public int RegisterCustomers(string title, string fName, string mName, string lName, string suffix, DateTime birthdate, string idCardPers, string address, string postcode, int cityId, string country, string phone, string email)
         {
             return _custRep.RegisterCustomer(title, fName, mName, lName, suffix, birthdate, idCardPers, address, postcode, cityId, country, phone, email);
         }
+        /// <summary>
+        /// Register Accout
+        /// </summary>
+        /// <param name="idCustomer"></param>
+        /// <param name="accName"></param>
+        /// <param name="overdraft"></param>
+        /// <returns>Id of registerd account</returns>
         public int RegisterAccount(int idCustomer, string accName, int overdraft)
         {
             return _accRep.RegisterAccount(idCustomer, accName, overdraft);
+        }
+
+        /// <summary>
+        /// Select Account by CustomerId
+        /// </summary>
+        /// <param name="idCustomer"></param>
+        /// <returns>Account selected by ID</returns>
+        public Account GetAccountByCustomerID( int idCustomer)
+        {
+            return _accRep.SelectAccountByCustomerID(idCustomer);
+        }
+        /// <summary>
+        /// Update / change Account activity of by Idcustomer
+        /// </summary>
+        /// <param name="idCustomer">Customer id (owner of account)</param>
+        public void UpdateAccountActivityByIdCustomer(int idCustomer)
+        {
+            _accRep.UpdateAccountActivityByIdCustomer(idCustomer);
+        }
+        /// <summary>
+        /// Update / change Customer activity of by Idcustomer
+        /// </summary>
+        /// <param name="idCustomer">Customer id </param>
+        public void UpdateCustomerActivityByIdCustomer(int idCustomer)
+        {
+            _custRep.UpdateCustomerActivityByIdCustomer(idCustomer);
+        }
+        /// <summary>
+        /// Update customers info
+        /// </summary>
+        /// <param name="idCustomer">CustomerId</param>
+        /// <param name="title">Title</param>
+        /// <param name="fName">FirstName</param>
+        /// <param name="mName">MiddleName</param>
+        /// <param name="lName">Lastname</param>
+        /// <param name="suffix">Suffix</param>
+        /// <param name="birthdate">BirthDate</param>
+        /// <param name="idCardPers">IdCard of person</param>
+        /// <param name="address">Address</param>
+        /// <param name="postcode">Postcode</param>
+        /// <param name="cityId">Id of city</param>
+        /// <param name="country">Country</param>
+        /// <param name="phone">Phone number</param>
+        /// <param name="email">Email</param>
+        public void UpdateCustomer(int idCustomer, string title, string fName, string mName, string lName, string suffix, DateTime birthdate, string idCardPers, string address, string postcode, int cityId, string country, string phone, string email)
+        {
+            _custRep.UpdateCustomer(idCustomer, title, fName, mName, lName, suffix, birthdate, idCardPers, address, postcode, cityId, country, phone, email);
+        }
+
+        public void UpdateAccount(int idCustomer, string accName, decimal overdraf)
+        {
+            _accRep.UpdateAccount(idCustomer, accName, overdraf);
         }
 
 

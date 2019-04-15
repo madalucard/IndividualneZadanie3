@@ -14,7 +14,9 @@ namespace BankSystem
     public partial class frmClientManagement : Form
     {
         ViewModelBank _vmb = new ViewModelBank();
-
+        List<Customers> _custtt = new List<Customers>();
+        Account _acc = new Account();
+        int custIdNext = 0;
         /// <summary>
         /// Backup, do not really use :)
         /// </summary>
@@ -24,13 +26,15 @@ namespace BankSystem
         /// Used when viewing/updating existing client.
         /// </summary>
         /// <param name="clientId"></param>
-        public frmClientManagement(int accId)
+        public frmClientManagement(int custId)
         {
-            List<Customers> _custtt = new List<Customers>();
+            custIdNext = custId;
             InitializeComponent();
-            gwCardsView.DataSource = _vmb.GetAllCardsByAccID(accId);
+            gwCardsView.DataSource = _vmb.GetAllCardsByAccID(custId);
+
             #region Fill clients info when form is opened
-            _custtt = _vmb.GetCustomerByID(accId);
+            _custtt = _vmb.GetCustomerByID(custId);
+            _acc =_vmb.GetAccountByCustomerID(custId);
             lblCustIdValue.Text = _custtt[0].IdCustomer.ToString();
             lblTitleValue.Text = _custtt[0].Title.ToString() == "null" ? "" : _custtt[0].Title.ToString();
             lblFNameValue.Text = _custtt[0].Firstname.ToString();
@@ -51,6 +55,15 @@ namespace BankSystem
             #region Status set Active/Closed
             if (_custtt[0].Active)
             {
+                OpenCust();
+            }
+            else
+            {
+                CloseCust();
+            }
+
+            if (_acc.Active)
+            {
                 OpenAcc();
             }
             else
@@ -59,15 +72,31 @@ namespace BankSystem
             }
             #endregion
         }
+        /// <summary>
+        /// Change account status in db 
+        /// </summary>
+        /// <param name="idCustomer"></param>
+        private void ChangeAccActiv(int IdCustomer)
+        {
+            _vmb.UpdateAccountActivityByIdCustomer(IdCustomer);
+        }
+        /// <summary>
+        /// Change customer status in db
+        /// </summary>
+        /// <param name="IdCustomer"></param>
+        private void ChangeCustActiv(int IdCustomer)
+        {
+            _vmb.UpdateCustomerActivityByIdCustomer(IdCustomer);
+        }
 
         /// <summary>
-        /// Sets account to active.
+        /// Sets customer to active.
         /// </summary>
-        private void OpenAcc()
+        private void OpenCust()
         {
-            lblStatusValue.Text = "ACTIVE";
-            lblStatusValue.ForeColor = Color.Lime;
-            cmdCloseOpenAccount.Text = "Close account";
+            lblCustStatusValue.Text = "ACTIVE";
+            lblCustStatusValue.ForeColor = Color.Lime;
+            cmdCloseOpenCustomer.Text = "Close customer";
 
             lblBDayValue.Visible = true;
             lblIDCardNumValue.Visible = true;
@@ -78,15 +107,17 @@ namespace BankSystem
             lblPhoneValue.Visible = true;
             lblEMailValue.Visible = true;
             gbCardsView.Visible = true;
+
+            OpenAcc();
         }
         /// <summary>
-        /// Sets account to closed.
+        /// Sets customer to closed.
         /// </summary>
-        private void CloseAcc()
+        private void CloseCust()
         {
-            lblStatusValue.Text = "CLOSED";
-            lblStatusValue.ForeColor = Color.Red;
-            cmdCloseOpenAccount.Text = "Open account";
+            lblCustStatusValue.Text = "CLOSED";
+            lblCustStatusValue.ForeColor = Color.Red;
+            cmdCloseOpenCustomer.Text = "Open customer";
 
             lblBDayValue.Visible = false;
             lblIDCardNumValue.Visible = false;
@@ -98,8 +129,35 @@ namespace BankSystem
             lblEMailValue.Visible = false;
             gbCardsView.Visible = false;
 
+            CloseAcc();
+        }
+
+        /// <summary>
+        /// Sets account to active.
+        /// </summary>
+        private void OpenAcc()
+        {
+            lblAccStatusValue.Text = "ACTIVE";
+            lblAccStatusValue.ForeColor = Color.Lime;
+            cmdCloseOpenAcc.Text = "Close account";
+
+            lblAmountValue.Visible = true;
+            gbCardsView.Visible = true;
 
         }
+        /// <summary>
+        /// Sets account to closed.
+        /// </summary>
+        private void CloseAcc()
+        {
+            lblAccStatusValue.Text = "CLOSED";
+            lblAccStatusValue.ForeColor = Color.Red;
+            cmdCloseOpenAcc.Text = "Open account";
+
+            lblAmountValue.Visible = false;
+            gbCardsView.Visible = false;
+        }
+
         /// <summary>
         /// Button for  closing and opening account
         /// </summary>
@@ -108,22 +166,48 @@ namespace BankSystem
         private void cmdCloseOpenAccount_Click(object sender, EventArgs e)
         {
 
-            if (lblStatusValue.Text == "ACTIVE")
+            if (lblAccStatusValue.Text == "ACTIVE")
             {
                 MessageBox.Show("Are you sure?", "Closing", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                
+                ChangeAccActiv(_custtt[0].IdCustomer);
                 CloseAcc();
             }
-            else if (lblStatusValue.Text == "CLOSED")
+            else if (lblAccStatusValue.Text == "CLOSED")
             {
                 MessageBox.Show("Are you sure?", "Opening", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-               
+                ChangeAccActiv(_custtt[0].IdCustomer);
                 OpenAcc();
             }
 
-            
-            
+        }
+        /// <summary>
+        /// Button for  closing and opening account
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmdCloseOpenCust_Click(object sender, EventArgs e)
+        {
 
+            if (lblCustStatusValue.Text == "ACTIVE")
+            {
+                MessageBox.Show("Are you sure?", "Closing", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                ChangeCustActiv(_custtt[0].IdCustomer);
+                if (_acc.Active)
+                {
+                    ChangeAccActiv(_custtt[0].IdCustomer);
+                }
+                CloseCust();
+            }
+            else if (lblCustStatusValue.Text == "CLOSED")
+            {
+                MessageBox.Show("Are you sure?", "Opening", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                ChangeCustActiv(_custtt[0].IdCustomer);
+                if (_acc.Active)
+                {
+                    ChangeAccActiv(_custtt[0].IdCustomer);
+                }   
+                OpenCust();
+            }
         }
 
 
@@ -133,41 +217,14 @@ namespace BankSystem
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        /// <summary>
+        /// Opens formular for update customer(register)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdUpdate_Click(object sender, EventArgs e)
         {
-            using (frmAccount newForm = new frmAccount(42))
+            using (frmAccount newForm = new frmAccount(custIdNext))
             {
                 newForm.ShowDialog();
             }
@@ -205,7 +262,10 @@ namespace BankSystem
             }
         }
 
-        
+      
+        private void lblAccNameValue_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

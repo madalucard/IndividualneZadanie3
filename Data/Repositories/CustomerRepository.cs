@@ -420,5 +420,139 @@ namespace Data.Repositories
 
             return SelectLastCustomer();
         }
+
+        public void UpdateCustomerActivityByIdCustomer(int idCustomer)
+        {
+            bool active = false;
+
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                try
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+                }
+                catch
+                {
+                    //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+                }
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = @"select Active
+                                            from Customers
+                                            where IdCustomer = @filteredID";
+                    command.Parameters.Add("@filteredID", SqlDbType.Int).Value = idCustomer;
+                    active = bool.Parse(command.ExecuteScalar().ToString());
+                }
+            }
+            if (active)
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+                {
+                    try
+                    {
+                        connection.Open();
+                        Debug.WriteLine("Connection to DB opened!");
+                    }
+                    catch
+                    {
+                        //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+                    }
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"update Customers
+                                                set Active = 0
+                                                where IdCustomer = @filteredID";
+                        command.Parameters.Add("@filteredID", SqlDbType.Int).Value = idCustomer;
+                        command.ExecuteNonQuery();
+
+                        Debug.WriteLine("Customer closed!");
+
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+            }
+            else
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+                {
+                    try
+                    {
+                        connection.Open();
+                        Debug.WriteLine("Connection to DB opened!");
+                    }
+                    catch
+                    {
+                        //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+                    }
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"update Customers
+                                        set Active = 1
+                                        where IdCustomer = @filteredID";
+                        command.Parameters.Add("@filteredID", SqlDbType.Int).Value = idCustomer;
+                        command.ExecuteNonQuery();
+
+                        Debug.WriteLine("Customer Opened!");
+
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+
+            }
+
+        }
+
+        public void UpdateCustomer(int idCustomer, string title, string fName, string mName, string lName, string suffix, DateTime birthdate, string idCardPers, string address, string postcode, int cityId, string country, string phone, string email)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"UPDATE [dbo].[Customers]
+                                               SET [title] = @title
+                                                  ,[Firstname] = @fName
+                                                  ,[Middlename] =@mName
+                                                  ,[Lastname] = @lName
+                                                  ,[Suffix] = @suffix
+                                                  ,[Birthdate] = @birthdate
+                                                  ,[IdCardPersonal] = @idCardPers
+                                                  ,[Address] = @address
+                                                  ,[Postcode] = @postcode
+                                                  ,[CityID] = @cityId
+                                                  ,[Country] = @country
+                                                  ,[Phone] = @phone
+                                                  ,[Email] = @email
+                                                WHERE IdCustomer = @idCustomer";
+                        command.Parameters.Add("@idCustomer", SqlDbType.Int).Value = idCustomer;
+                        command.Parameters.Add("@title", SqlDbType.NVarChar).Value = title;
+                        command.Parameters.Add("@fName", SqlDbType.NVarChar).Value = fName;
+                        command.Parameters.Add("@mName", SqlDbType.NVarChar).Value = mName;
+                        command.Parameters.Add("@lName", SqlDbType.NVarChar).Value = lName;
+                        command.Parameters.Add("@suffix", SqlDbType.NVarChar).Value = suffix;
+                        command.Parameters.Add("@birthdate", SqlDbType.Date).Value = birthdate;
+                        command.Parameters.Add("@idCardPers", SqlDbType.NVarChar).Value = idCardPers;
+                        command.Parameters.Add("@address", SqlDbType.NVarChar).Value = address;
+                        command.Parameters.Add("@postcode", SqlDbType.NVarChar).Value = postcode;
+                        command.Parameters.Add("@cityId", SqlDbType.Int).Value = cityId;
+                        command.Parameters.Add("@country", SqlDbType.NVarChar).Value = country;
+                        command.Parameters.Add("@phone", SqlDbType.NVarChar).Value = phone;
+                        command.Parameters.Add("@email", SqlDbType.NVarChar).Value = email;
+
+                        command.ExecuteNonQuery();
+                        Debug.Write("Customer Updated!");
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+            }
+            catch
+            {
+                //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+            }
+        }
     }
 }

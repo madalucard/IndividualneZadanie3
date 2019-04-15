@@ -65,6 +65,7 @@
             this.txtAccName = new System.Windows.Forms.TextBox();
             this.lblAccName = new System.Windows.Forms.Label();
             this.btnRegister = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.gbCreateCust.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -404,11 +405,23 @@
             this.btnRegister.UseVisualStyleBackColor = true;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnUpdate.Location = new System.Drawing.Point(314, 219);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(197, 103);
+            this.btnUpdate.TabIndex = 3;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // frmAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(529, 334);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.gbCreateCust);
@@ -462,5 +475,6 @@
         private System.Windows.Forms.TextBox txtAccName;
         private System.Windows.Forms.Label lblAccName;
         private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }

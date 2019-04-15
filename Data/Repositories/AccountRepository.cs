@@ -171,7 +171,7 @@ namespace Data.Repositories
                         //    {
                         //        while (reader.Read())
                         //        {
-                                    
+
                         //            _acc.IdAccount = reader.GetInt32(0);
                         //            _acc.IdCustomer = reader.GetInt32(1);
                         //            _acc.Iban = reader.GetString(2);
@@ -248,6 +248,171 @@ namespace Data.Repositories
                 //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
             }
             return SelectLastAccount();
+        }
+        /// <summary>
+        /// Returns account selected by his ownerID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Account</returns>
+        public Account SelectAccountByCustomerID(int idCustomer)
+        {
+            Account _acc = new Account();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"select *
+                                                from Account
+                                                where IdCustomers = @filteredID";
+                        command.Parameters.Add("@filteredID", SqlDbType.Int).Value = idCustomer;
+                        try
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    _acc.IdAccount = reader.GetInt32(0);
+                                    _acc.IdCustomer = reader.GetInt32(1);
+                                    _acc.Iban = reader.GetString(2);
+                                    _acc.AccName = reader.GetString(3);
+                                    _acc.Amount = reader.IsDBNull(4) ? 0 : reader.GetDecimal(4);
+                                    _acc.Overdraft = reader.GetDecimal(5);
+                                    _acc.IdCompany = reader.IsDBNull(6) ? 0 : reader.GetInt32(6);
+                                    _acc.Active = reader.GetBoolean(7);
+
+                                }
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            //TODO something with Reader exceptions.... Debug.WriteLine(e.ToString());
+                        }
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+            }
+            catch
+            {
+                //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+            }
+            return _acc;
+        }
+
+        public void UpdateAccountActivityByIdCustomer(int idCustomer)
+        {
+            bool active;
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                try
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+                }
+                catch
+                {
+                    //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+                }
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                        Debug.WriteLine(idCustomer);
+                    command.CommandText = "select Active from Account where IdCustomers = @filteredID";
+                    command.Parameters.Add("@filteredID", SqlDbType.Int).Value = idCustomer;
+                    active = Convert.ToBoolean(command.ExecuteScalar());
+                }
+                }
+            if (active)
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+                {
+                    try
+                    {
+                        connection.Open();
+                        Debug.WriteLine("Connection to DB opened!");
+                    }
+                    catch
+                    {
+                        //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+                    }
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"update Account
+                                        set Active = 0
+                                        where IdCustomers = @filteredID";
+                        command.Parameters.Add("@filteredID", SqlDbType.Int).Value = idCustomer;
+                        command.ExecuteNonQuery();
+
+                        Debug.WriteLine("Account closed!");
+
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+            }
+            else
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+                {
+                    try
+                    {
+                        connection.Open();
+                        Debug.WriteLine("Connection to DB opened!");
+                    }
+                    catch
+                    {
+                        //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+                    }
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"update Account
+                                        set Active = 1
+                                        where IdCustomers = @filteredID";
+                        command.Parameters.Add("@filteredID", SqlDbType.Int).Value = idCustomer;
+                        bool success = (command.ExecuteNonQuery() > 0);
+                       
+
+                        Debug.WriteLine("Account status changed!");
+
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+
+            }
+
+        }
+
+        public void UpdateAccount(int idCustomer, string accName, decimal overdraf)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+                {
+                    connection.Open();
+                    Debug.WriteLine("Connection to DB opened!");
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"UPDATE [dbo].[Account]
+                                                SET [AccName] = @AccName
+                                                  ,[Overdraft] = @Overdraft
+                                                WHERE [IdCustomers] = @IdCustomers ";
+                        command.Parameters.Add("@IdCustomers", SqlDbType.Int).Value = idCustomer;
+                        command.Parameters.Add("@AccName", SqlDbType.NVarChar).Value = accName;
+                        command.Parameters.Add("@Overdraft", SqlDbType.Decimal).Value = overdraf;
+
+                        command.ExecuteNonQuery();
+                        Debug.Write("Customer Updated!");
+                        Debug.WriteLine("Connection to DB Closed!");
+                    }
+                }
+            }
+            catch
+            {
+                //TODO something with Connection exceptions.... Debug.WriteLine(e.ToString());
+            }
         }
     }
 }
